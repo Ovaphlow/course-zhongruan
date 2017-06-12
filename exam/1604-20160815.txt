@@ -1,0 +1,40 @@
+String和StringBuffer的区别
+静态变量和实例变量的区别
+抽象方法、抽象类和接口的特点
+多线程的几种实现方法，同步的实现方法
+JSP有哪些内置对象
+Session和Cookie的区别
+存储过程和触发器，存储过程的优缺点
+Struts2和SpringMVC的区别
+MyBatis和Hibernate的区别
+Spring中的IOC、DI和AOP
+
+http://group.jobbole.com/9802/#comm-15495
+class myThread2 implements Runnable{
+      public static void main(String[] args) throws InterruptedException {
+             Thread t=new Thread(new MyThread2());
+             t.start();
+             System.out.print("m1");
+             t.join();
+             System.out.print("m2");
+      }
+      public void run(){
+             System.out.print("r1");
+             System.out.print("r2");
+      }
+}
+
+http://group.jobbole.com/19848/#comm-56817
+给定一个数组，除了一个数出现1次之外，其余数都出现3次。找出出现一次的数。
+如：{1, 2, 1, 2, 1, 2, 7}, 找出7.
+格式：
+第一行输入一个数n，代表数组的长度，接下来一行输入数组A[n],(输入的数组必须满足问题描述的要求),最后输出只出现一次的数。
+样例输入
+4
+0 0 0 5
+样例输出
+5
+
+http://group.jobbole.com/9082/#comm-16961
+输入一个整数n，求从1到n这n个整数的十进制表示中1出现的次数。
+例如输入12，从1到12这些整数中包含1 的数字有1，10，11和12，1一共出现了5次。
