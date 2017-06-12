@@ -1,0 +1,40 @@
+apply plugin: 'java'
+apply plugin: 'war'
+apply plugin: 'jetty'
+
+
+// tag::repositories[]
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+// end::repositories[]
+
+dependencies {
+    compile "javax.servlet:servlet-api:2.5"
+    compile "org.apache.commons:commons-lang3:3.4"
+    compile "mysql:mysql-connector-java:5.1.38"
+    compile "commons-io:commons-io:2.4"
+    compile "com.fasterxml.jackson.core:jackson-core:2.7.4"
+    compile "com.fasterxml.jackson.core:jackson-databind:2.7.4"
+    compile group: 'org.mybatis', name: 'mybatis', version: '3.4.0'
+    // compile fileTree (dir: "lib", include: "*.jar")
+}
+
+compileJava.options.encoding = 'UTF-8'
+
+// tag::wrapper[]
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.9'
+}
+// end::wrapper[]
+
+jettyRun {
+    contextPath = "/"
+    httpPort = 8080
+}
+
+jettyRunWar {
+    contextPath = "/"
+    httpPort = 8080
+}
