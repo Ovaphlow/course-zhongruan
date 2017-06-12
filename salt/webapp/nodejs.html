@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>中软睿达</title>
+  <!--[if lt IE 9]>
+  <script src="lib/html5shiv.min.js"></script>
+  <script src="lib/respond.min.js"></script>
+  <![endif]-->
+  <link href="lib/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="lib/highlight.js-9.9.0/styles/atom-one-dark.css" rel="stylesheet"/>
+  <style>
+    code {font-family: consolas}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 page-header">
+        <h3>互联网多语言后端负载均衡项目架构</h3>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <ul class="nav nav-pills">
+          <li role="presentation"><a href="index.html">首页</a></li>
+          <li role="presentation"><a href="java.html">Java</a></li>
+          <li role="presentation" class="active"><a href="nodejs.html">Node.js</a></li>
+          <li role="presentation"><a href="kotlin.html">Kotlin</a></li>
+          <li role="presentation"><a href="go.html">Go</a></li>
+          <li role="presentation"><a href="python.html">Python</a></li>
+          <li role="presentation"><a href="nginx.html">Nginx</a></li>
+        </ul>
+        <hr/>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <h4>Node.js后端代码</h4>
+        <p><strong>app.js</strong></p>
+        <pre><code>
+var express = require('express');
+var bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
+var mysql = require('./util/mysql.js');
+
+var app = express();
+
+app.use(express.static('public'));
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(cookieParser());
+
+var index = require('./router/index');
+app.use('/', index);
+
+app.listen(8000);
+        </code></pre>
+        <hr/>
+        <p><strong>router/index.js</strong></p>
+        <pre><code>
+var express = require('express')
+var router = express.Router()
+var mysql = require('../util/mysql')
+
+router.route('/api/description')
+  .get(function (req, res) {
+    res.json({
+      'Classification': 'Micro',
+      'Language': 'JavaScript',
+      'Platform': 'None',
+      'Frontend': 'None',
+      'OS': 'Windows',
+    })
+  })
+
+router.route('/api/user')
+  .get(function (req, res) {
+    mysql.pool.getConnection(function (err, connection) {
+      if (err) {
+        // console.log(err)
+        res.send({message: 'ERROR_ON_CONNECT_TO_DATABASE'})
+        return
+      }
+      let sql = 'select id, account, name '
+          + 'from user'
+      let param = [req.cookies.user]
+      connection.query({
+        sql: sql,
+        values: param
+      }, function (err, data) {
+        connection.release()
+        if (err) {
+          res.send({message: 'QUERY_FAILED'})
+          return
+        }
+        res.json(data)
+      })
+    })
+  })
+
+router.route('/api/test')
+  .get(function (req, res) {
+    mysql.pool.getConnection(function (err, connection) {
+      if (err) {
+        // console.log(err)
+        res.send({message: 'ERROR_ON_CONNECT_TO_DATABASE'})
+        return
+      }
+      let sql = 'select id, account, name '
+          + 'from user'
+      let param = [req.cookies.user]
+      connection.query({
+        sql: sql,
+        values: param
+      }, function (err, data) {
+        connection.release()
+        if (err) {
+          res.send({message: 'QUERY_FAILED'})
+          return
+        }
+        res.json({
+          'Classification': 'Micro',
+          'Language': 'JavaScript',
+          'Platform': 'None',
+          'Frontend': 'None',
+          'OS': 'Windows',
+          'Data': {
+            'Length': data.length,
+            'Content': data
+          }
+        })
+      })
+    })
+  })
+
+module.exports = router
+        </code></pre>
+        <hr/>
+        <p><strong>util/mysql.js</strong></p>
+        <pre><code>
+var mysql = require('mysql');
+
+exports.pool = mysql.createPool({
+  connectionLimit: 5,
+  host: '127.0.0.1',
+  user: 'root',
+  password: '',
+  database: 'zhongruan',
+  debug: false
+});
+        </code></pre>
+     </div>
+    </div>
+  </div>
+
+  <script src="lib/jquery.min.js"></script>
+  <script src="lib/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+  <script src="lib/highlight.js-9.9.0/highlight.pack.js"></script>
+
+  <script type="text/javascript">
+    $(function () {
+      hljs.initHighlightingOnLoad()
+    })
+  </script>
+</body>
+</html>

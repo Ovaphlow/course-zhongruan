@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>中软睿达</title>
+  <!--[if lt IE 9]>
+  <script src="lib/html5shiv.min.js"></script>
+  <script src="lib/respond.min.js"></script>
+  <![endif]-->
+  <link href="lib/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="lib/highlight.js-9.9.0/styles/atom-one-dark.css" rel="stylesheet"/>
+  <style>
+    code {font-family: consolas}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 page-header">
+        <h3>互联网多语言后端负载均衡项目架构</h3>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <ul class="nav nav-pills">
+          <li role="presentation"><a href="index.html">首页</a></li>
+          <li role="presentation" class="active"><a href="java.html">Java</a></li>
+          <li role="presentation"><a href="nodejs.html">Node.js</a></li>
+          <li role="presentation"><a href="kotlin.html">Kotlin</a></li>
+          <li role="presentation"><a href="go.html">Go</a></li>
+          <li role="presentation"><a href="python.html">Python</a></li>
+          <li role="presentation"><a href="nginx.html">Nginx</a></li>
+        </ul>
+        <hr/>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <h4>Java后端代码</h4>
+        <p><strong>application.yml</strong></p>
+        <pre><code>
+info:
+  app:
+    encoding: UTF-8
+    java:
+      source: 1.8
+      target: 1.8
+
+server:
+  port: 8080
+  context-path: /
+
+spring:
+  application:
+    name: jpaboot
+  datasource:
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1/zhongruan?useUnicode=true&characterEncoding=utf8
+    username: root
+    password:
+  jpa:
+    database: MYSQL
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+      naming-strategy: org.hibernate.cfg.ImprovedNameStrategy
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5Dialect
+        </code></pre>
+        <hr/>
+        <p><strong>Application.java</strong></p>
+        <pre><code>
+package linan;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class Application {
+
+  private static final Logger log = LoggerFactory.getLogger(Application.class);
+
+  public static void main(String[] args) {
+    log.info("程序运行");
+    SpringApplication.run(Application.class, args);
+  }
+}
+        </code></pre>
+        <hr/>
+        <p><strong>User.java</strong></p>
+        <pre><code>
+package linan;
+
+import javax.persistence.*;
+
+@Entity
+@Table(name="user")
+public class User {
+
+  @Id
+  @GeneratedValue(strategy=GenerationType.AUTO)
+  private Long id;
+
+  @Column(nullable=false, length=50)
+  private String account;
+
+  @Column(nullable=false, length=50)
+  private String password;
+
+  @Column(nullable=false, length=50)
+  private String name;
+
+  public String getAccount() {
+    return account;
+  }
+
+  public void setAccount(String account) {
+    this.account = account;
+  }
+
+  public String getPassword() {
+    return password;
+  }
+
+  public void setPassword(String passwrod) {
+    this.password = password;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public User() {}
+
+  @Override
+  public String toString() {
+    return String.format(
+        "User[id=%d, account='%s', password='%s', nickname='%s']",
+        id, account, password, name);
+  }
+}
+        </code></pre>
+        <hr/>
+        <p><strong>UserController.java</strong></p>
+        <pre><code>
+package linan;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+@Controller
+public class UserController {
+
+  @Autowired
+  UserRepository userRepos;
+
+  @GetMapping("/api/description")
+  @ResponseBody
+  public Map<String, String> description() {
+    Map<String, String> result = new HashMap<String, String>();
+    result.put("Classification", "Fullstack");
+    result.put("Language", "Java");
+    result.put("Platform", "JAX-RS");
+    result.put("Frontend", "None/Jetty");
+    result.put("OS", "Windows");
+    return result;
+  }
+
+  @GetMapping("/api/user")
+  @ResponseBody
+  public List<User> user() {
+    return userRepos.findAll();
+  }
+}
+        </code></pre>
+        <hr/>
+        <p><strong>UserRepository.java</strong></p>
+        <pre><code>
+package linan;
+
+import java.util.List;
+
+import org.springframework.data.repository.CrudRepository;
+
+public interface UserRepository extends CrudRepository<User, Long> {
+
+  List<User> findByAccount(String account);
+  List<User> findAll();
+}
+        </code></pre>
+      </div>
+    </div>
+  </div>
+
+  <script src="lib/jquery.min.js"></script>
+  <script src="lib/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+  <script src="lib/highlight.js-9.9.0/highlight.pack.js"></script>
+
+  <script type="text/javascript">
+    $(function () {
+      hljs.initHighlightingOnLoad()
+    })
+  </script>
+</body>
+</html>

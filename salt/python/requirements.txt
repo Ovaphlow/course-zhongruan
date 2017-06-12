@@ -1,0 +1,10 @@
+flask
+pymysql
+sqlalchemy
+xlrd
+xlwt
+xlutils
+tornado
+twisted
+mysql-connector
+pillow

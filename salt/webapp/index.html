@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>中软睿达</title>
+  <!--[if lt IE 9]>
+  <script src="lib/html5shiv.min.js"></script>
+  <script src="lib/respond.min.js"></script>
+  <![endif]-->
+  <link href="lib/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+</head>
+<body>
+  <!--<nav class="navbar navbar-default navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">中软睿达</a>
+      </div>
+
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="#">首页 <span class="sr-only">(current)</span></a></li>
+          <li><a href="#">当前任务</a></li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">我的工作 <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="#">功能 1</a></li>
+              <li><a href="#">功能 2</a></li>
+              <li><a href="#">功能 3</a></li>
+              <li role="separator" class="divider"></li>
+              <li><a href="#">附加功能 1</a></li>
+              <li role="separator" class="divider"></li>
+              <li><a href="#">附加功能 A</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>-->
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 page-header">
+        <h3>互联网多语言后端负载均衡项目架构</h3>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <ul class="nav nav-pills">
+          <li role="presentation" class="active"><a href="index.html">首页</a></li>
+          <li role="presentation"><a href="java.html">Java</a></li>
+          <li role="presentation"><a href="nodejs.html">Node.js</a></li>
+          <li role="presentation"><a href="kotlin.html">Kotlin</a></li>
+          <li role="presentation"><a href="go.html">Go</a></li>
+          <li role="presentation"><a href="python.html">Python</a></li>
+          <li role="presentation"><a href="nginx.html">Nginx</a></li>
+        </ul>
+        <hr/>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <h4>简介</h4>
+        <ul>
+          <li>介绍常见的开发语言及框架</li>
+          <li>整理学员就业单位使用的新技术</li>
+          <li>使用前端、后端分离的开发方式，并实现了互联网网站常见的反向代理及负载均衡技术</li>
+          <li>参考借鉴微服务架构的设计思想，实现了微服务架构的简单雏形</li>
+          <li>学习阿里巴巴等大型互联网公司的多语言后端技术</li>
+        </ul>
+        <hr/>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3">
+        <h4>后端信息</h4>
+        <dl>
+          <dt>开发语言</dt><dd id="language"></dd>
+          <dt>分类</dt><dd id="classification"></dd>
+          <dt>平台</dt><dd id="platform"></dd>
+          <dt>操作系统</dt><dd id="os"></dd>
+          <dt>前端服务器</dt><dd id="frontend"></dd>
+        </dl>
+      </div>
+      <div class="col-md-9">
+        <h4>语言、框架及工具</h4>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <td>名称</td>
+              <td>开发者</td>
+              <td>应用方向</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Java (语言)</td>
+              <td>Oracle</td>
+              <td>天猫、京东、亚马逊等</td>
+            </tr>
+            <tr>
+              <td>Spring Boot / Data JPA (开发框架)</td>
+              <td>spring.io</td>
+              <td>北京、上海等软件公司（学员就职单位）</td>
+            </tr>
+            <tr>
+              <td>Maven (开发工具)</td>
+              <td>Apache 软件基金会</td>
+              <td>目前 Java 开发中主流的第三方构建工具</td>
+            </tr>
+            <tr>
+              <td>Jetty (Java Web 容器)</td>
+              <td>Eclipse 软件基金会</td>
+              <td>云计算厂商采用的 Java Web 容器工具</td>
+            </tr>
+            <tr>
+              <td>Node.js (开发平台)</td>
+              <td>Node.js 基金会</td>
+              <td>阿里巴巴、微软、eBay等</td>
+            </tr>
+            <tr>
+              <td>Express / Koa (开发框架)</td>
+              <td>TJ 等人</td>
+              <td>蚂蚁金服及一些毕业学员就业单位等</td>
+            </tr>
+            <tr>
+              <td>Kotlin (语言)</td>
+              <td>JetBrain</td>
+              <td>Android端App及一些软件公司</td>
+            </tr>
+            <tr>
+              <td>Gradle (开发工具)</td>
+              <td>Gradle Inc</td>
+              <td>Android Studio 及 Kotlin 默认使用的构建工具</td>
+            </tr>
+            <tr>
+              <td>Go (语言)</td>
+              <td>Google</td>
+              <td>Google、Docker、及国内主流的云存储企业</td>
+            </tr>
+            <tr>
+              <td>Python (语言)</td>
+              <td>Python 软件基金会</td>
+              <td>豆瓣、知乎、Facebook 等</td>
+            </tr>
+            <tr>
+              <td>Tornado (开发框架)</td>
+              <td>Facebook</td>
+              <td>Facebook 及其它互联网公司等</td>
+            </tr>
+            <tr>
+              <td>Nginx (服务器软件)</td>
+              <td>Yandex</td>
+              <td>Yandex、阿里巴巴、腾讯等各大互联网公司</td>
+            </tr>
+            <tr>
+              <td>Bootstrap</td>
+              <td>Twitter</td>
+              <td>互联网主流的基础前端框架</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <td>ID</td>
+              <td>账号</td>
+              <td>名称</td>
+            </tr>
+          </thead>
+          <tbody id="list">
+          </tbody>
+        </table>
+    </div>
+  </div>
+
+  <script src="lib/jquery.min.js"></script>
+  <script src="lib/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+  <script src="lib/handlebars-4.0.10/handlebars.min.js"></script>
+
+  <script type="text/javascript">
+    $(function () {
+      $.ajax({
+        url: 'api/description',
+        type: 'get',
+        dataType: 'json',
+        success: function (res, status, xhr) {
+          console.log(res)
+          $('#classification').text(res.Classification)
+          $('#frontend').text(res.Frontend)
+          $('#language').text(res.Language)
+          $('#os').text(res.OS)
+          $('#platform').text(res.Platform)
+        }
+      })
+    })
+  </script>
+
+  <script id="template" type="text/template">
+    {{#each item}}
+    <tr>
+      <td>{{id}}{{ID}}</td>
+      <td>{{account}}{{Account}}</td>
+      <td>{{name}}{{Name}}</td>
+    </tr>
+    {{/each}}
+  </script>
+
+  <script type="text/javascript">
+    $(function () {
+      // $.ajax({
+      //   url: 'api/user',
+      //   type: 'get',
+      //   dataType: 'json',
+      //   success: function (res, status, xhr) {
+      //     console.log(res)
+      //     var template = Handlebars.compile($('#template').html())
+      //     var data = {"item": res}
+      //     $('#list').html(template(data))
+      //   }
+      // })
+    })
+  </script>
+</body>
+</html>

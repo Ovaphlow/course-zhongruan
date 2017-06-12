@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>中软睿达</title>
+  <!--[if lt IE 9]>
+  <script src="lib/html5shiv.min.js"></script>
+  <script src="lib/respond.min.js"></script>
+  <![endif]-->
+  <link href="lib/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="lib/highlight.js-9.9.0/styles/atom-one-dark.css" rel="stylesheet"/>
+  <style>
+    code {font-family: consolas}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 page-header">
+        <h3>互联网多语言后端负载均衡项目架构</h3>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <ul class="nav nav-pills">
+          <li role="presentation"><a href="index.html">首页</a></li>
+          <li role="presentation"><a href="java.html">Java</a></li>
+          <li role="presentation"><a href="nodejs.html">Node.js</a></li>
+          <li role="presentation"><a href="kotlin.html">Kotlin</a></li>
+          <li role="presentation"><a href="go.html">Go</a></li>
+          <li role="presentation" class="active"><a href="python.html">Python</a></li>
+          <li role="presentation"><a href="nginx.html">Nginx</a></li>
+        </ul>
+        <hr/>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <h4>Python后端代码</h4>
+        <p><strong>app.go</strong></p>
+        <pre><code>
+# -*- coding=UTF-8 -*-
+
+import json
+
+import tornado.httpserver
+import tornado.ioloop
+import tornado.web
+
+from sqlalchemy import create_engine
+from sqlalchemy import text
+
+
+DATABASE = {
+    'USER': 'root',
+    'PASSWORD': '',
+    'HOST': '127.0.0.1',
+    'NAME': 'zhongruan'
+}
+
+engine = create_engine('mysql+pymysql://%s:%s@%s/%s?charset=utf8' % (
+        DATABASE['USER'],
+        DATABASE['PASSWORD'],
+        DATABASE['HOST'],
+        DATABASE['NAME']),
+    pool_recycle=900,
+    pool_size=10)
+
+
+class Description(tornado.web.RequestHandler):
+    def get(self):
+        result = {
+            'Classification': 'Platform',
+            'Language': 'Python',
+            'Platform': 'None',
+            'Frontend': 'Tornado',
+            'OS': 'Linux'
+        }
+        self.write(result)
+
+
+class User(tornado.web.RequestHandler):
+    def get(self):
+        connection = engine.connect()
+        res = connection.execute(
+            'select id, account, name from user'
+        ).fetchall()
+        connection.close()
+        data = []
+        for row in res:
+            data.append({
+                'id': row[0],
+                'account': row[1],
+                'name': row[2]
+            })
+        self.finish(json.dumps(data))
+
+
+class MainHandler(tornado.web.RequestHandler):
+    def get(self):
+        connection = engine.connect()
+        res = connection.execute(
+            'select id, account, name from user'
+        ).fetchall()
+        connection.close()
+        data = []
+        for row in res:
+            data.append({
+                'id': row[0],
+                'account': row[1],
+                'name': row[2]
+            })
+        result = {
+            'Classification': 'Platform',
+            'Language': 'Python',
+            'Platform': 'None',
+            'Frontend': 'Tornado',
+            'OS': 'Linux',
+            'Data': {
+                'Length': len(data),
+                'Content': data
+            }
+        }
+        self.write(result)
+
+
+def make_app():
+    return tornado.web.Application([
+        (r"/api/test", MainHandler),
+        (r"/api/description", Description),
+        (r"/api/user", User)
+    ])
+
+
+def run():
+    app = make_app()
+    server = tornado.httpserver.HTTPServer(app)
+    server.bind(9000)
+    server.start(0)
+    tornado.ioloop.IOLoop.current().start()
+
+
+if __name__ == '__main__':
+    run()
+       </code></pre>
+    </div>
+  </div>
+
+  <script src="lib/jquery.min.js"></script>
+  <script src="lib/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+  <script src="lib/highlight.js-9.9.0/highlight.pack.js"></script>
+
+  <script type="text/javascript">
+    $(function () {
+      hljs.initHighlightingOnLoad()
+    })
+  </script>
+</body>
+</html>

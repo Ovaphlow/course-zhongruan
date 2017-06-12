@@ -1,0 +1,29 @@
+info:
+  app:
+    encoding: UTF-8
+    java:
+      source: 1.8
+      target: 1.8
+
+server:
+  port: 8080
+  context-path: /
+
+spring:
+  application:
+    name: jpaboot
+  datasource:
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1/zhongruan?useUnicode=true&characterEncoding=utf8
+    username: root
+    password: 
+  jpa:
+    database: MYSQL
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+      naming-strategy: org.hibernate.cfg.ImprovedNameStrategy
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5Dialect
+      

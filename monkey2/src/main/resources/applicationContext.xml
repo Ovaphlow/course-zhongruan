@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:context="http://www.springframework.org/schema/context"
+  xmlns:tx="http://www.springframework.org/schema/tx"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd
+    http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+  <bean id="dataSource"
+      class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+    <property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
+    <property name="url" value="jdbc:mysql://localhost/zhongruan?useOldAliasMetadataBehavior=true"></property>
+    <property name="username" value="root"></property>
+    <property name="password" value=""></property>
+  </bean>
+
+  <!--<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">-->
+  <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+    <property name="dataSource" ref="dataSource"/>
+    <property name="packagesToScan">
+    <list>
+      <value>com.zhongruan.monkey2.entity</value>
+    </list>
+		</property>
+    <property name="hibernateProperties">
+      <props>
+        <prop key="hibernate.format_sql">true</prop>
+        <!--<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>-->
+        <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
+        <prop key="hibernate.show_sql">true</prop>
+        <prop key="hibernate.hbm2ddl.auto">update</prop>
+        <prop key="current_session_context_class">thread</prop>
+        <prop key="connection.pool_size">20</prop>
+        <prop key="javax.persistence.validation.mode">none</prop>
+        <prop key="hibernate.current_session_context_class">org.springframework.orm.hibernate5.SpringSessionContext</prop>
+      </props>
+    </property>
+  </bean>
+
+  <!-- 事务管理器 -->
+  <!--<bean id="txManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">-->
+  <bean id="txManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+    <property name="sessionFactory" ref="sessionFactory"/>
+  </bean>
+
+  <context:component-scan base-package="com.zhongruan.monkey2" >
+    <context:exclude-filter type="regex" expression="com\.zhongruan\.monkey2\..*Controller"/>
+  </context:component-scan>
+
+  <!--<tx:annotation-driven transaction-manager="txManager" />-->
+
+  <tx:advice id="txAdvice" transaction-manager="txManager">
+    <tx:attributes>
+      <tx:method name="*" propagation="REQUIRED" rollback-for="Exception" />
+    </tx:attributes>
+  </tx:advice>
+
+  <!--<aop:config expose-proxy="true">
+    <aop:pointcut id="txPointcut" expression="execution(* com.zhongruan.monkey2.service.*Service.*(..))" />
+    <aop:advisor advice-ref="txAdvice" pointcut-ref="txPointcut"/>
+  </aop:config>-->
+</beans>

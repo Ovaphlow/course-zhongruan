@@ -1,0 +1,46 @@
+buildscript {
+  ext.kotlin_version = '1.1.2-4' // Required for Kotlin integration
+  ext.spring_boot_version = '1.5.3.RELEASE'
+  repositories {
+    maven{url 'http://maven.aliyun.com/nexus/content/groups/public'}
+    jcenter()
+  }
+  dependencies {
+    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version" // Required for Kotlin integration
+    classpath "org.springframework.boot:spring-boot-gradle-plugin:$spring_boot_version"
+  }
+}
+
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'kotlin' // Required for Kotlin integration
+apply plugin: 'org.springframework.boot'
+apply plugin: 'application'
+
+jar {
+  baseName = 'salt-kotlin'
+  version = '0.1.0'
+}
+
+repositories {
+  maven{url 'http://maven.aliyun.com/nexus/content/groups/public'}
+  jcenter()
+}
+
+dependencies {
+  compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version" // Required for Kotlin integration
+  compile('org.springframework.boot:spring-boot-starter-web') {
+    exclude module: "spring-boot-starter-web"
+  }
+  compile("org.springframework.boot:spring-boot-starter-jetty")
+  compile("org.springframework.boot:spring-boot-starter-data-jpa")
+  compile("mysql:mysql-connector-java:5.1.42")
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '3.5'
+}
+
+springBoot {
+    mainClass = 'salt.Application'
+}

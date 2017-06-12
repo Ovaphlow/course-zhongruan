@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>中软睿达</title>
+  <!--[if lt IE 9]>
+  <script src="lib/html5shiv.min.js"></script>
+  <script src="lib/respond.min.js"></script>
+  <![endif]-->
+  <link href="lib/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="lib/highlight.js-9.9.0/styles/atom-one-dark.css" rel="stylesheet"/>
+  <style>
+    code {font-family: consolas}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 page-header">
+        <h3>互联网多语言后端负载均衡项目架构</h3>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <ul class="nav nav-pills">
+          <li role="presentation"><a href="index.html">首页</a></li>
+          <li role="presentation"><a href="java.html">Java</a></li>
+          <li role="presentation"><a href="nodejs.html">Node.js</a></li>
+          <li role="presentation"><a href="kotlin.html">Kotlin</a></li>
+          <li role="presentation" class="active"><a href="go.html">Go</a></li>
+          <li role="presentation"><a href="python.html">Python</a></li>
+          <li role="presentation"><a href="nginx.html">Nginx</a></li>
+        </ul>
+        <hr/>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <h4>Go后端代码</h4>
+        <p><strong>app.go</strong></p>
+        <pre><code>
+package main
+
+import (
+  _ "github.com/go-sql-driver/mysql"
+  "database/sql"
+  "encoding/json"
+  "fmt"
+  "log"
+  "net/http"
+)
+
+var db *sql.DB
+
+type Row struct {
+  Id string
+  Account string
+  Name string
+}
+
+type Data struct {
+  Length int
+  Content []Row
+}
+
+type Description struct {
+  Classification string
+  Language string
+  Platform string
+  Frontend string
+  OS string
+}
+
+type User struct {
+  User []Row
+}
+
+type Result struct {
+  Classification string
+  Language string
+  Platform string
+  FrontEnd string
+  OS string
+  Data Data
+}
+
+func init() {
+  db, _ = sql.Open("mysql", "root:@/zhongruan?charset=utf8")
+  db.SetMaxOpenConns(100)
+  db.SetMaxIdleConns(1)
+  db.Ping()
+}
+
+func description(w http.ResponseWriter, r *http.Request) {
+  var desc Description
+  desc.Classification = "Platform"
+  desc.Language = "Go"
+  desc.Platform = "None"
+  desc.Frontend = "None"
+  desc.OS = "Windows"
+  res, err := json.Marshal(desc)
+  if (err != nil) {
+    log.Fatal(err)
+  }
+  fmt.Fprintf(w, string(res))
+}
+
+func user(w http.ResponseWriter, r *http.Request) {
+  rows, err := db.Query("select id, account, name from user")
+  if (err != nil) {
+    log.Fatal(err)
+  }
+  var user []Row
+  for rows.Next() {
+    var r Row
+    err = rows.Scan(&r.Id, &r.Account, &r.Name)
+    if (err != nil) {
+      log.Fatal(err)
+    }
+    user = append(user, r)
+  }
+
+  res, _ := json.Marshal(user)
+  fmt.Fprintf(w, string(res))
+}
+
+func test(w http.ResponseWriter, r *http.Request) {
+  var d Result
+  d.Classification = "Platform"
+  d.Language = "Go"
+  d.Platform = "None"
+  d.FrontEnd = "None"
+  d.OS = "Windows"
+
+  rows, err := db.Query("select id, account, name from user")
+  checkErr(err)
+
+  var data Data
+  for rows.Next() {
+    var r Row
+    err = rows.Scan(&r.Id, &r.Account, &r.Name)
+    checkErr(err)
+    data.Content = append(data.Content, r)
+  }
+  data.Length = len(data.Content)
+  // fmt.Println(data)
+  d.Data = data
+
+  res, err := json.Marshal(d)
+  if err != nil {
+    log.Fatal(err)
+  }
+
+  // fmt.Println(string(res))
+  fmt.Fprintf(w, string(res))
+}
+
+func main() {
+  http.HandleFunc("/api/test", test)
+  http.HandleFunc("/api/description", description)
+  http.HandleFunc("/api/user", user)
+  err := http.ListenAndServe(":9090", nil)
+  if err != nil {
+    log.Fatal("[error] ListenAndServe: ", err)
+  }
+}
+
+func checkErr(err error) {
+  if err != nil {
+    panic(err)
+  }
+}
+       </code></pre>
+    </div>
+  </div>
+
+  <script src="lib/jquery.min.js"></script>
+  <script src="lib/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+  <script src="lib/highlight.js-9.9.0/highlight.pack.js"></script>
+
+  <script type="text/javascript">
+    $(function () {
+      hljs.initHighlightingOnLoad()
+    })
+  </script>
+</body>
+</html>
