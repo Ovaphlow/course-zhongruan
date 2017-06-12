@@ -21,9 +21,7 @@
   </bean>
 
   <!-- 注解扫描包 -->
-  <context:component-scan base-package="com.zhongruan.monkey2.controller" >
-    <context:include-filter type="regex" expression="com\.zhongruan\.monkey2\..*Controller"/>
-  </context:component-scan>
+  <context:component-scan base-package="com.zhongruan.monkey2.controller"/>
 
   <!-- 开启注解 -->
   <mvc:annotation-driven />

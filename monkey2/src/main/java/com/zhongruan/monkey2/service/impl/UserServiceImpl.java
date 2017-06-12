@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.zhongruan.monkey2.dao.UserDao;
-import com.zhongruan.monkey2.entity.User;
+import com.zhongruan.monkey2.entity.UserEntity;
 import com.zhongruan.monkey2.service.UserService;
 
 @Service
@@ -16,7 +16,7 @@ public class UserServiceImpl implements UserService{
   private UserDao userDao;
 
   @Override
-  public void save(User user) {
+  public void save(UserEntity user) {
     userDao.save(user);
   }
 
@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService{
   @Override
   @Transactional(rollbackFor={Exception.class})
   public void saveException() throws Exception {
-    User user = new User();
+    UserEntity user = new UserEntity();
     user.setName("testException");
     userDao.save(user);
     throw new Exception();
