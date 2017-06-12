@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC
+  "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <!--这块等于dao接口的实现  namespace必须和接口的类路径一样-->
+<mapper namespace="com.zhongruan.monkey1.dao.UserDao">
+  <!-- id必须和接口中的方法名一样 -->
+  <select id="login" resultType="java.util.Map">
+    select id, count(*) as counter
+    from user
+    where account = #{account}
+      and password = #{password}
+  </select>
+
+  <select id="info" resultType="com.zhongruan.monkey1.entity.UserEntity">
+    select id, account, password, name
+    from user
+    where id = #{id}
+  </select>
+
+  <insert id="register" parameterType="com.zhongruan.monkey1.entity.UserEntity">
+    insert into
+      user
+    set
+      account = #{account}
+      , password = #{password}
+      , name = #{name}
+  </insert>
+</mapper>
