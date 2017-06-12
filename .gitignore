@@ -1,3 +1,9 @@
+target/
+build/
+*.iml
+node_modules/
+*.pyc
+
 # Compiled class file
 *.class
 
