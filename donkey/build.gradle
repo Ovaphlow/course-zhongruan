@@ -1,0 +1,27 @@
+plugins {
+  id 'java'
+  id 'war'
+  id 'org.akhikhl.gretty' version '1.4.2'
+}
+
+repositories {
+  mavenLocal()
+  maven{url 'http://maven.aliyun.com/nexus/content/groups/public'}
+  jcenter()
+  mavenCentral()
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+dependencies {
+  // compile group: 'javax.servlet', name: 'servlet-api', version: '2.5'
+  compile group: 'log4j', name: 'log4j', version: '1.2.17'
+  compile group: 'org.apache.struts', name: 'struts2-core', version: '2.3.32'
+  compile group: 'org.apache.struts', name: 'struts2-convention-plugin', version: '2.3.32'
+  compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.41'
+  compile group: 'org.hibernate', name: 'hibernate-core', version: '5.1.5.Final'
+  // compile fileTree (dir: "lib", include: "*.jar")
+}
+
+compileJava.options.encoding = 'UTF-8'
