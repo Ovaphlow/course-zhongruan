@@ -33,22 +33,22 @@
           <li><a href="#">添加联系人</a></li>
           <li><a href="search">检索</a></li>
         </ul>
-        <form class="navbar-form navbar-left">
-          <div class="form-group">
-            <input type="text" class="form-control" placeholder="检索...">
-          </div>
-        </form>
       </div>
     </div>
   </nav>
 
-  <!--<div class="container">
+  <div class="container">
     <div class="row">
-      <div class="col-md-12 page-header">
-        <h4>Spring MVC / MyBatis 框架</h4>
+      <div class="col-md-4 col-md-offset-4 text-center">
+        <input type="text" class="form-control" placeholder="检索..." id="keyword"/>
       </div>
     </div>
-  </div>-->
+    <div class="row">
+      <div class="col-md-12">
+        <hr/>
+      </div>
+    </div>
+  </div>
 
   <div class="container">
     <div class="row">
@@ -59,22 +59,9 @@
               <td>姓名</td>
               <td>公司（单位）</td>
               <td>职务</td>
-              <td>地址</td>
-              <td>IM</td>
-              <td>备注</td>
             </tr>
           </thead>
-          <tbody>
-            <c:forEach items="${list}" var="bizcard">
-              <tr>
-                <td>${bizcard.name}</td>
-                <td>${bizcard.company}</td>
-                <td>${bizcard.title}</td>
-                <td>${bizcard.address}</td>
-                <td>${bizcard.im}</td>
-                <td>${bizcard.remark}</td>
-              </tr>
-            </c:forEach>
+          <tbody id="list">
           </tbody>
         </table>
       </div>
@@ -83,5 +70,42 @@
 
   <script src="lib/jquery.min.js"></script>
   <script src="lib/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+  <script src="lib/handlebars.min.js"></script>
+
+  <script id="template" type="text/template">
+    {{#each item}}
+    <tr>
+      <td>{{name}}</td>
+      <td>{{company}}</td>
+      <td>{{title}}</td>
+    </tr>
+    {{/each}}
+  </script>
+
+  <script type="text/javascript">
+    $(function () {
+      $('#keyword').on('keypress', function (event) {
+        // ASCII
+        if (event.keyCode == '13') {
+          $.ajax({
+            url: 'search',
+            type: 'post',
+            data: {keyword: $('#keyword').val()},
+            dataType: 'json',
+            // xhr = XMLHttpRequest
+            // res = response
+            // status = 200, 400, 500
+            success: function (res, status, xhr) {
+              console.log(res);
+              var source = $('#template').html()
+              var template = Handlebars.compile(source)
+              var data = {'item': res}
+              $('#list').html(template(data))
+            }
+          })
+        }
+      })
+    })
+  </script>
 </body>
 </html>

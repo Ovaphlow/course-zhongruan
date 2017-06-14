@@ -39,4 +39,21 @@ public class BizCardController{
     model.addAttribute("list", list);
     return "indexPhone";
   }
+
+  @GetMapping("/search")
+  public String searchPage() {
+    return "search";
+  }
+
+  @PostMapping("/search")
+  @ResponseBody // 将数据直接返回给客户端，不输出页面
+  public List<Map<String, Object>> search(
+    @RequestParam(value="keyword", defaultValue="") String keyword
+  ) {
+    logger.info("keyword: {}", keyword);
+    System.out.println(keyword);
+    List<Map<String, Object>> list = dao.search(keyword);
+    logger.info("{}", list);
+    return list;
+  }
 }
