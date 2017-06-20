@@ -28,5 +28,6 @@
   <!--注解式开发-->
   <mvc:annotation-driven/>
 
+  <!--让 Spring MVC 正常处理 html 等静态文件-->
   <mvc:default-servlet-handler/>
 </beans>

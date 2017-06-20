@@ -31,13 +31,8 @@
         <ul class="nav navbar-nav">
           <li class="active"><a href="/">首页 <span class="sr-only">(current)</span></a></li>
           <li><a href="#">添加档案</a></li>
-          <li><a href="search" id="search">检索</a></li>
+          <li><a href="search">检索</a></li>
         </ul>
-        <form class="navbar-form navbar-left">
-          <div class="form-group">
-            <input type="text" class="form-control" placeholder="检索...">
-          </div>
-        </form>
       </div>
     </div>
   </nav>
@@ -46,6 +41,16 @@
     <div class="row">
       <div class="col-md-12 page-header">
         <h3>档案管理</h4>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4 col-md-offset-4">
+        <div class="form-group">
+          <input class="form-control" id="search" type="text"/>
+        </div>
       </div>
     </div>
   </div>
@@ -64,7 +69,17 @@
               <td>联系方式</td>
             </tr>
           </thead>
-          <tbody>
+          <tbody id="list">
+            <c:forEach items="${dangan}" var="d">
+              <tr>
+                <td>${d.danganhao}</td>
+                <td>${d.shenfenzheng}</td>
+                <td>${d.xingming}</td>
+                <td>${d.xingbie}</td>
+                <td>${d.chushengriqi}</td>
+                <td>${d.lianxifangshi}</td>
+              </tr>
+            </c:forEach>
           </tbody>
         </table>
       </div>
@@ -73,5 +88,58 @@
 
   <script src="lib/jquery.min.js"></script>
   <script src="lib/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+  <script src="lib/handlebars.min.js"></script>
+
+  <script id="template" type="text/template">
+  {{#each item}}
+  <tr>
+    <td>{{danganhao}}</td>
+    <td>{{shenfenzheng}}</td>
+    <td>{{xingming}}</td>
+    <td>{{xingbie}}</td>
+    <td>{{chushengriqi}}</td>
+    <td>{{lianxifangshi}}</td>
+  </tr>
+  {{/each}}
+  </script>
+
+  <script type="text/javascript">
+  // $ 等价于 jQuery
+  $(function () { // 页面加载完毕之后运行后面的代码
+    // jQuery 的选择器
+    // # 开头代表选择 id 为 # 后面字符的元素
+    // on 代表绑定事件
+    // keypress 代表键盘按键
+    $('#search').on('keypress', function (event) {
+      // 如果按下的按键是回车，event 代表事件，keyCode 代表按键
+      if (event.keyCode == '13') {
+        $.ajax({
+          // 请求的地址
+          url: 'search',
+          // 请求方式
+          type: 'post',
+          // 发送给后端的诗句
+          data: {keyword: $('#search').val()},
+          // 后端返回数据的类型，其它还有 html，text，xml 等
+          dataType: 'json',
+          // 通讯成功后后触发的回调函数
+          // response 代表后端返回的数据
+          // status 代表通讯状态，比如 200，400，500，404 等
+          // xhr 代表 原生 ajax 通讯使用的 XMLHttpRequest 对象
+          success: function (response, status, xhr) {
+            var source = $('#template').html()
+            var template = Handlebars.compile(source)
+            var data = {'item': res}
+            $('#list').html(template(data))
+          },
+          // 通讯失败后触发的回调函数
+          error: function () {},
+          // 无论通讯成功或失败均会触发的回调函数
+          complete: function () {}
+        })
+      }
+    })
+  })
+  </script>
 </body>
 </html>
