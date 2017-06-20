@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="dao.BizCardDao" >
+
+  <select id="list" resultType="entity.BizCardEntity">
+    select id, name, company, title, address, im, remark
+    from bizcard
+    order by name
+  </select>
+
+  <select id="listWithPhone" resultType="java.util.Map">
+    select b.id, name, company, title, address, im, remark, phone
+	  , p.category as phone_category
+      , e.email, e.category as email_category
+    from bizcard as b, bizcard_phone as p, bizcard_email as e
+    where b.id = p.bizcard_id
+      and b.id = e.bizcard_id
+    group by b.id
+  </select>
+
+  <select id="search" resultType="java.util.Map">
+    select id, name, company, title
+    from bizcard
+    where locate(#{keyword}, name) > 0
+      or locate(#{keyword}, company) > 0
+      or locate(#{keyword}, title) > 0
+  </select>
+</mapper>
