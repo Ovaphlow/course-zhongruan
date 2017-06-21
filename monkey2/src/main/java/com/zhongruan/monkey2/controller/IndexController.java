@@ -9,24 +9,20 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import com.zhongruan.monkey2.entity.UserEntity;
-import com.zhongruan.monkey2.service.UserService;
 
 @Controller
 public class IndexController {
 
   Logger logger = LoggerFactory.getLogger(IndexController.class);
 
-  @Autowired
-  private UserService userService;
-
 	@Autowired
   private SessionFactory sessionFactory;
 
   @GetMapping("/")
-  public String index() {
+  public String index(Model model) {
+
     return "index";
   }
 
@@ -64,49 +60,4 @@ public class IndexController {
     return "redirect:/";
   }
 
-  @GetMapping("/login")
-  public String login() {
-    return "login";
-  }
-
-  @PostMapping("/register")
-  public String registerPost(
-    @RequestParam(value="password2", defaultValue="") String password2,
-    UserEntity user
-  ) {
-    if (!password2.equals(user.getPassword())) {
-      return "redirect:/register?error=INCONSISTENT_PASSWORD";
-    }
-    user.setName(user.getAccount());
-    Session session = sessionFactory.openSession();
-    session.beginTransaction();
-    session.save(user);
-    session.getTransaction().commit();
-    session.close();
-    userService.save(user);
-    return "redirect:/login";
-  }
-
-  @GetMapping("/register")
-  public String register() {
-    return "register";
-  }
-
-  @RequestMapping("/save")
-  @ResponseBody
-  public String save() {
-    // userService.save();
-    return "Hello World! by save";
-  }
-
-  @RequestMapping("/saveException")
-  @ResponseBody
-  public String saveException() {
-    try {
-      userService.saveException();
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    return "Hello World! by saveException";
-  }
 }

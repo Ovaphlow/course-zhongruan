@@ -1,8 +1,8 @@
 -- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: zhongruan
+-- Host: localhost    Database: zhongruan
 -- ------------------------------------------------------
--- Server version	5.5.5-10.1.18-MariaDB
+-- Server version	5.5.5-10.2.6-MariaDB
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -16,29 +16,37 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `user`
+-- Table structure for table `book`
 --
 
-DROP TABLE IF EXISTS `user`;
+DROP TABLE IF EXISTS `book`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `user` (
-  `id` bigint(20) NOT NULL,
-  `account` varchar(50) NOT NULL,
-  `password` varchar(50) NOT NULL,
-  `name` varchar(50) NOT NULL,
+CREATE TABLE `book` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `isbn` varchar(45) DEFAULT '',
+  `name` varchar(100) DEFAULT '',
+  `former_name` varchar(100) DEFAULT '',
+  `author` varchar(100) DEFAULT '',
+  `translator` varchar(100) DEFAULT '',
+  `publisher` varchar(45) DEFAULT '',
+  `publication_date` date DEFAULT '1000-01-01',
+  `series` varchar(100) DEFAULT '',
+  `language` varchar(10) DEFAULT '',
+  `pages` int(11) DEFAULT 0,
+  `format` varchar(10) DEFAULT '',
+  `intro` text DEFAULT '',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `user`
+-- Dumping data for table `book`
 --
 
-LOCK TABLES `user` WRITE;
-/*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'asd','asdas',''),(2,'asd','dsa',''),(3,'a1','ddasd',''),(4,'as','asdasd',''),(5,'a\'s\'d','asd',''),(6,'asd','asddasd',''),(7,'看i也许不该','dsdsdfsdj',''),(8,'刘浪','liulang','刘浪'),(9,'asd','a','asd'),(10,'asd','a','asd'),(11,'asdasd','aa','asdasd'),(12,'asdasd','aa','asdasd');
-/*!40000 ALTER TABLE `user` ENABLE KEYS */;
+LOCK TABLES `book` WRITE;
+/*!40000 ALTER TABLE `book` DISABLE KEYS */;
+/*!40000 ALTER TABLE `book` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -50,4 +58,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-04-23 21:59:33
+-- Dump completed on 2017-06-21 16:26:45

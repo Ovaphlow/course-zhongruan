@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8"/>
   <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>首页</title>
+  <title>中软睿达</title>
   <!--[if lt IE 9]>
   <script src="lib/html5shiv.min.js"></script>
   <script src="lib/respond.min.js"></script>
@@ -28,26 +29,28 @@
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
-          <li class="active"><a href="/index">首页 <span class="sr-only">(current)</span></a></li>
-          <li><a href="#">当前任务</a></li>
+          <li class="active"><a href="/">首页 <span class="sr-only">(current)</span></a></li>
+          <li><a href="/librarian">图书馆管理系统</a></li>
           <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">我的工作 <span class="caret"></span></a>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+              代码实现
+              <span class="caret"></span>
+            </a>
             <ul class="dropdown-menu">
-              <li><a href="#">功能 1</a></li>
-              <li><a href="#">功能 2</a></li>
-              <li><a href="#">功能 3</a></li>
+              <li><a href="#">文件说明</a></li>
               <li role="separator" class="divider"></li>
-              <li><a href="#">附加功能 1</a></li>
+              <li><a href="#">数据库</a></li>
               <li role="separator" class="divider"></li>
-              <li><a href="#">附加功能 A</a></li>
+              <li><a href="#">Maven 配置</a></li>
+              <li role="separator" class="divider"></li>
+              <li><a href="#">框架配置</a></li>
+              <li><a href="#">DAO (数据访问对象 / 数据库接口层)</a></li>
+              <li><a href="#">Service (业务逻辑 / 服务层)</a></li>
+              <li><a href="#">Controller (控制器 / 控制层)</a></li>
+              <li><a href="#">JSP 页面</a></li>
             </ul>
           </li>
         </ul>
-        <form class="navbar-form navbar-left">
-          <div class="form-group">
-            <input type="text" class="form-control" placeholder="检索...">
-          </div>
-        </form>
         <ul class="nav navbar-nav navbar-right">
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">当前用户 <span class="caret"></span></a>
@@ -64,8 +67,9 @@
 
   <div class="container">
     <div class="row">
-      <div class="col-md-12 page-header">
-        <h4>Spring MVC / Hibernate 入门</h4>
+      <div class="col-md-12">
+        <h3>Spring MVC / Hibernate 入门</h3>
+        <hr/>
       </div>
     </div>
   </div>
