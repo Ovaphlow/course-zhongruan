@@ -1,6 +1,7 @@
 package com.zhongruan.monkey2.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.hibernate.*;
 import org.hibernate.transform.Transformers;
@@ -30,11 +31,12 @@ public class IndexController {
   }
 
   @PostMapping("/login")
-  public String loginPost(UserEntity user) {
-    logger.info("account: {}", user.getAccount());
-    logger.info("password: {}", user.getPassword());
-    logger.info("{}", user);
-    user.setName(user.getAccount());
+  // public String loginPost(UserEntity user) {
+  public String loginPost(
+      @RequestParam(value="account", defaultValue="") String account,
+      @RequestParam(value="password", defaultValue="") String password) {
+    logger.info("account: {}", account);
+    logger.info("password: {}", password);
     String sql = "select id, name, account, password "
       + "from user "
       + "where account = :account "
@@ -42,20 +44,19 @@ public class IndexController {
       + "limit 1";
     Session session = sessionFactory.openSession();
     // List<Object[]> _users = session.createSQLQuery(sql)
-    List _users = session.createSQLQuery(sql)
-      .setParameter("account", user.getAccount())
-      .setParameter("password", user.getPassword())
+    List<Map<String, Object>> result = session.createSQLQuery(sql)
+      .setParameter("account", account)
+      .setParameter("password", password)
       .setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP)
       // .addEntity(User.class)
       .list();
-      // .list()
     session.close();
-    logger.info("query result: {}", _users);
-    logger.info("count: {}", _users.size());
-    if (_users.size() == 0) {
+    logger.info("query result: {}", result);
+    logger.info("count: {}", result.size());
+    if (result.size() == 0) {
       return "redirect:/login";
     }
-    logger.info(_users.get(0).toString());
+    logger.debug("{}", result.get(0));
     // for (Object[] _user: _users) {
     //   logger.info("id : {}", _user[0]);
     //   logger.info("name: {}", _user[1]);
