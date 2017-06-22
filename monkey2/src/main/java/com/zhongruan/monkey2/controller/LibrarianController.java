@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import com.zhongruan.monkey2.entity.BookEntity;
 import com.zhongruan.monkey2.service.BookService;
 
 @Controller
@@ -25,11 +26,29 @@ public class LibrarianController {
 
   @Autowired BookService bookService;
 
+  @RequestMapping(value="/append", method=RequestMethod.POST)
+  public String appendPost(BookEntity book) {
+    return "redirect:/librarian";
+  }
+
+  @RequestMapping(value="/append", method=RequestMethod.GET)
+  public String append() {
+    return "librarian/append";
+  }
+
   @RequestMapping(value="", method=RequestMethod.GET)
   public String index(Model model) {
     List<Map<String, Object>> result = bookService.index();
-    logger.debug("{}", result);
+    // logger.debug("{}", result);
     model.addAttribute("books", result);
     return "librarian";
+  }
+
+  @RequestMapping(value="/search", method=RequestMethod.POST)
+  @ResponseBody
+  public List<Map<String, Object>> search(
+    @RequestParam(value="keyword", defaultValue="") String keyword
+  ) {
+    return bookService.search(keyword);
   }
 }

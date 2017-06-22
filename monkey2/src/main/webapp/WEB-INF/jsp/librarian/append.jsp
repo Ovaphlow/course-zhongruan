@@ -8,10 +8,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>中软睿达</title>
   <!--[if lt IE 9]>
-  <script src="lib/html5shiv.min.js"></script>
-  <script src="lib/respond.min.js"></script>
+  <script src="../lib/html5shiv.min.js"></script>
+  <script src="../lib/respond.min.js"></script>
   <![endif]-->
-  <link href="<%= request.getContextPath() %>lib/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="../lib/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
 </head>
 <body>
   <nav class="navbar navbar-default navbar-inverse">
@@ -73,12 +73,12 @@
       </div>
       <div class="col-md-8">
         <ul class="nav nav-pills">
-          <li role="presentation" class="active"><a href="/librarian">首页</a></li>
-          <li role="presentation"><a href="/librarian/append">添加书籍</a></li>
+          <li role="presentation"><a href="/librarian">首页</a></li>
+          <li role="presentation" class="active"><a href="/librarian/append">添加书籍</a></li>
         </ul>
       </div>
       <div class="col-md-4">
-        <input class="form-control" id="search"/>
+        <!--<input class="form-control" id="search"/>-->
       </div>
       <div class="col-md-12">
         <hr/>
@@ -86,74 +86,75 @@
     </div>
   </div>
 
-  <div class="container" id="list">
-    <c:forEach items="${books}" var="book">
-      <div class="row">
-        <div class="panel panel-default">
-          <div class="panel-body">
-            <div class="col-md-12">
-              <h3>${book.name}</h3>
-            </div>
-            <div class="col-md-4">
-              <p>${book.author} ${book.translator}</p>
-              <p>${book.publisher} - ${book.publication_date}</p>
-              <p>${book.series} / ${book.pages} 页 / ${book.language} / ${book.format} 开</p>
-            </div>
-            <div class="col-md-8">
-              <p>${book.intro}</p>
-            </div>
-          </div>
-        </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 form-group">
+        <label for="isbn">ISBN</label>
+        <input class="form-control" id="isbn" type="text"/>
       </div>
-    </c:forEach>
+    </div>
+    <div class="row">
+      <div class="col-md-6 form-group">
+        <label for="name">名称</label>
+        <input class="form-control" id="name" type="text"/>
+      </div>
+      <div class="col-md-6 form-group">
+        <label for="former-name">原名</label>
+        <input class="form-control" id="former-name" type="text"/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 form-group">
+        <label for="author">作者</label>
+        <input class="form-control" id="author" type="text"/>
+      </div>
+      <div class="col-md-6 form-group">
+        <label for="translator">译者</label>
+        <input class="form-control" id="translator" type="text"/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4 form-group">
+        <label for="publisher">出版社</label>
+        <input class="form-control" id="publisher" type="text"/>
+      </div>
+      <div class="col-md-4 form-group">
+        <label for="publication-date">出版日期</label>
+        <input class="form-control" id="publication-date" type="text"/>
+      </div>
+      <div class="col-md-4 form-group">
+        <label for="series">系列</label>
+        <input class="form-control" id="series" type="text"/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4 form-group">
+        <label for="language">语言</label>
+        <input class="form-control" id="language" type="text"/>
+      </div>
+      <div class="col-md-4 form-group">
+        <label for="pages">页数</label>
+        <input class="form-control" id="pages" type="text"/>
+      </div>
+      <div class="col-md-4 form-group">
+        <label for="format">开本</label>
+        <input class="form-control" id="format" type="text"/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 form-group">
+        <label for="intro">简介</label>
+        <textarea class="form-control" id="intro" rows="7"></textarea>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <a class="btn btn-default" href="../librarian">后退</a>
+        <a class="btn btn-primary pull-right" id="submit">提交</a>
   </div>
 
-  <script src="lib/jquery.min.js"></script>
-  <script src="lib/bootstrap-3.3.7/js/bootstrap.min.js"></script>
-  <script src="lib/handlebars.min.js"></script>
+  <script src="../lib/jquery.min.js"></script>
+  <script src="../lib/bootstrap-3.3.7/js/bootstrap.min.js"></script>
 
-  <script id="template" type="text/template">
-  {{#each items}}
-      <div class="row">
-        <div class="panel panel-default">
-          <div class="panel-body">
-            <div class="col-md-12">
-              <h3>{{name}}</h3>
-            </div>
-            <div class="col-md-4">
-              <p>{{author}} {{translator}}</p>
-              <p>{{publisher}} - {{publication_date}}</p>
-              <p>{{series}} / {{pages}} 页 / {{language}} / {{format}} 开</p>
-            </div>
-            <div class="col-md-8">
-              <p>{{intro}}</p>
-            </div>
-          </div>
-        </div>
-      </div>
-  {{/each}}
-  </script>
-
-  <script type="text/javascript">
-    $(function () {
-      $('#search').on('keypress', function (event) {
-        if (event.keyCode == '13') {
-          $.ajax({
-            url: 'librarian/search',
-            type: 'post',
-            data: {keyword: $('#search').val()},
-            dataType: 'json',
-            success: function (res, status, xhr) {
-              // console.log(res);
-              var source = $('#template').html()
-              var template = Handlebars.compile(source)
-              var data = {'items': res}
-              $('#list').html(template(data))
-            }
-          })
-        }
-      })
-    })
-  </script>
 </body>
 </html>

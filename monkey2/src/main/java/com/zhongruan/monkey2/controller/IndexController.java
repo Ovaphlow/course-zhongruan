@@ -59,5 +59,4 @@ public class IndexController {
     // }
     return "redirect:/";
   }
-
 }
