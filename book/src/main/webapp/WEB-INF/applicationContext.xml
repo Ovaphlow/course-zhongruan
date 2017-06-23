@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:aop="http://www.springframework.org/schema/aop"
+  xmlns:context="http://www.springframework.org/schema/context"
+  xmlns:mvc="http://www.springframework.org/schema/mvc"
+  xmlns:tx="http://www.springframework.org/schema/tx"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop.xsd
+    http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd
+    http://www.springframework.org/schema/mvc
+    http://www.springframework.org/schema/mvc/spring-mvc.xsd
+    http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+  <!-- 读取 jdbc 配置文件 -->
+  <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+    <property name="locations">
+      <list>
+        <value>classpath:jdbc.properties</value>
+      </list>
+    </property>
+  </bean>
+
+  <!-- 配置连接池 Hikari -->
+  <bean id="dataSourceHikari" class="com.zaxxer.hikari.HikariDataSource" destroy-method="shutdown">
+    <property name="driverClassName" value="${driverClass}" />
+    <property name="jdbcUrl" value="${jdbcUrl}" />
+    <property name="username" value="${user}" />
+    <property name="password" value="${password}" />
+  </bean>
+
+  <!-- 配置连接池 Druid -->
+  <bean id="dataSourceDruid" class="com.alibaba.druid.pool.DruidDataSource">
+    <property name="driverClassName" value="${driverClass}"/>
+    <property name="url" value="${jdbcUrl}"/>
+    <property name="username" value="${user}"/>
+    <property name="password" value="${password}"/>
+
+    <property name="initialSize" value="0"/>
+    <property name="maxActive" value="50"/>
+    <property name="minIdle" value="0"/>
+    <property name="maxWait" value="6000"/>
+  </bean>
+
+  <!-- MyBatis 的 SqlSessionFactory 配置 -->
+  <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+    <!-- 指定数据源 -->
+    <property name="dataSource" ref="dataSourceHikari" />
+    <!-- 映射文件的位置 -->
+    <property name="mapperLocations" value="classpath:mapper/*.xml" />
+    <!-- 给映射的类配置别名 -->
+    <!-- 默认的别名是model类的首字母小写 -->
+    <!-- 如：StaffDeploy实体类。别名为：staffDeploy -->
+    <property name="typeAliasesPackage" value="entity" />
+  </bean>
+
+  <!-- 扫描映射接口（dao） -->
+  <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+    <property name="basePackage" value="dao" />
+  </bean>
+
+  <!-- Spring 事务-->
+  <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+    <property name="dataSource" ref="dataSourceHikari" />
+  </bean>
+
+  <!-- 自动注入Service层 -->
+  <!--<context:component-scan base-package="service"/>-->
+
+  <!-- 基于注解的声明式事务 -->
+  <tx:annotation-driven transaction-manager="transactionManager" />
+</beans>
