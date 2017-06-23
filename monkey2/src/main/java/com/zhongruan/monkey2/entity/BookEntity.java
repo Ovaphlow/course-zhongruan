@@ -97,4 +97,22 @@ public class BookEntity implements Serializable{
   public String getFormat() {return this.format;}
 
   public void setFormat(String format) {this.format = format;}
+
+  @Override
+  public String toString() {
+    return "BookEntity{" +
+      "id=" + id +
+      ", isbn='" + isbn + '\'' +
+      ", name='" + name + '\'' +
+      ", formerName='" + formerName + '\'' +
+      ", author='" + author + '\'' +
+      ", translator='" + translator + '\'' +
+      ", publisher='" + publisher + '\'' +
+      ", publicationDate=" + publicationDate +
+      ", series='" + series + '\'' +
+      ", language='" + language + '\'' +
+      ", pages=" + pages +
+      ", format='" + format + '\'' +
+      '}';
+  }
 }

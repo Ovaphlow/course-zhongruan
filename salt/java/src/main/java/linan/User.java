@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class User {
 
   @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
+  @GeneratedValue(strategy=GenerationType.IDENTITY)
   private Long id;
 
   @Column(nullable=false, length=50)
@@ -43,12 +43,13 @@ public class User {
     this.name = name;
   }
 
-  public User() {}
-
   @Override
   public String toString() {
-    return String.format(
-        "User[id=%d, account='%s', password='%s', nickname='%s']",
-        id, account, password, name);
+    return "User{" +
+      "id=" + id +
+      ", account='" + account + '\'' +
+      ", password='" + password + '\'' +
+      ", name='" + name + '\'' +
+      '}';
   }
 }
