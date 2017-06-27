@@ -26,9 +26,45 @@ public class LibrarianController {
 
   @Autowired BookService bookService;
 
+  @RequestMapping(value="/book/{id}", method=RequestMethod.POST)
+  @ResponseBody
+  public String update(BookEntity book, @PathVariable("id") Long id) {
+    logger.debug("id {}", id);
+    logger.debug("{}", book);
+    BookEntity b = bookService.findById(id);
+    b.setIntro("123123213213");
+    bookService.update(b);
+    try {
+      bookService.update(book);
+      return "OK";
+    } catch (Exception e) {
+      e.printStackTrace();
+      return "ERROR";
+    }
+  }
+
+  @RequestMapping(value="/book/{id}", method=RequestMethod.GET)
+  public String updatePage(
+    @PathVariable("id") Long id,
+    Model model
+  ) {
+    BookEntity book = bookService.findById(id);
+    // logger.debug("{}", book);
+    model.addAttribute("book", book);
+    return "librarian/update";
+  }
+
   @RequestMapping(value="/append", method=RequestMethod.POST)
+  @ResponseBody
   public String appendPost(BookEntity book) {
-    return "redirect:/librarian";
+    // logger.debug("{}", book);
+    try {
+      bookService.append(book);
+      return "OK";
+    } catch (Exception e) {
+      e.printStackTrace();
+      return "ERROR";
+    }
   }
 
   @RequestMapping(value="/append", method=RequestMethod.GET)

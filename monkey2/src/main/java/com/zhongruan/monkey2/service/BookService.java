@@ -7,9 +7,13 @@ import com.zhongruan.monkey2.entity.BookEntity;
 
 public interface BookService {
 
+  public void update(BookEntity book);
+
+  public BookEntity findById(Long id);
+
+  public void append(BookEntity book);
+
   public List<Map<String, Object>> index();
 
   public List<Map<String, Object>> search(String keyword);
-
-  public void append(BookEntity book);
 }

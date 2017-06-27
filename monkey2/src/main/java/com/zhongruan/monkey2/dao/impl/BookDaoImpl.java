@@ -22,6 +22,24 @@ public class BookDaoImpl implements BookDao {
 	@Autowired
   private SessionFactory sessionFactory;
 
+  public void update(BookEntity book) {
+    Session session = sessionFactory.openSession();
+    session.update(book);
+    session.flush();
+    session.close();
+  }
+
+  public BookEntity findById(Long id) {
+    Session session = sessionFactory.openSession();
+    return (BookEntity) session.get(BookEntity.class, id);
+  }
+
+  public void append(BookEntity book) {
+    Session session = sessionFactory.openSession();
+    session.save(book);
+    session.close();
+  }
+
   public List<Map<String, Object>> list() {
     String sql = "select id, isbn, name, former_name, author, translator, "
       + "publisher, publication_date, series, language, pages, format, intro "
@@ -49,10 +67,6 @@ public class BookDaoImpl implements BookDao {
       .list();
     session.close();
     return result;
-  }
-
-  public void append(BookEntity book) {
-    //
   }
 }
 

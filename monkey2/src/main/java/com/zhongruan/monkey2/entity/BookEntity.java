@@ -62,11 +62,11 @@ public class BookEntity implements Serializable{
   public void setPublisher(String publisher) {this.publisher = publisher;}
 
   @Column(name="publication_date")
-  private Date publicationDate;
+  private String publicationDate;
 
-  public Date getPublicationDate() {return this.publicationDate;}
+  public String getPublicationDate() {return this.publicationDate;}
 
-  public void setPublicationDate(Date publicationDate) {
+  public void setPublicationDate(String publicationDate) {
     this.publicationDate = publicationDate;
   }
 
@@ -98,6 +98,13 @@ public class BookEntity implements Serializable{
 
   public void setFormat(String format) {this.format = format;}
 
+  @Column(name="intro")
+  private String intro;
+
+  public String getIntro() {return this.intro;}
+
+  public void setIntro(String intro) {this.intro = intro;}
+
   @Override
   public String toString() {
     return "BookEntity{" +
@@ -108,11 +115,12 @@ public class BookEntity implements Serializable{
       ", author='" + author + '\'' +
       ", translator='" + translator + '\'' +
       ", publisher='" + publisher + '\'' +
-      ", publicationDate=" + publicationDate +
+      ", publicationDate='" + publicationDate + '\'' +
       ", series='" + series + '\'' +
       ", language='" + language + '\'' +
       ", pages=" + pages +
       ", format='" + format + '\'' +
+      ", intro='" + intro + '\'' +
       '}';
   }
 }

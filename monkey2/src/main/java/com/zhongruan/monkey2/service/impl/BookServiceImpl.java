@@ -19,6 +19,21 @@ public class BookServiceImpl implements BookService {
   private BookDao bookDao;
 
   @Override
+  public void update(BookEntity book) {
+    bookDao.update(book);
+  }
+
+  @Override
+  public BookEntity findById(Long id) {
+    return bookDao.findById(id);
+  }
+
+  @Override
+  public void append(BookEntity book) {
+    bookDao.append(book);
+  }
+
+  @Override
   public List<Map<String, Object>> index() {
     return bookDao.list();
   }
@@ -26,9 +41,5 @@ public class BookServiceImpl implements BookService {
   @Override
   public List<Map<String, Object>> search(String keyword) {
     return bookDao.search(keyword);
-  }
-
-  public void append(BookEntity book) {
-    bookDao.append(book);
   }
 }

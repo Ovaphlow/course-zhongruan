@@ -8,10 +8,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>中软睿达</title>
   <!--[if lt IE 9]>
-  <script src="../lib/html5shiv.min.js"></script>
-  <script src="../lib/respond.min.js"></script>
+  <script src="/lib/html5shiv.min.js"></script>
+  <script src="/lib/respond.min.js"></script>
   <![endif]-->
-  <link href="../lib/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="/lib/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
 </head>
 <body>
   <nav class="navbar navbar-default navbar-inverse">
@@ -74,7 +74,7 @@
       <div class="col-md-8">
         <ul class="nav nav-pills">
           <li role="presentation"><a href="/librarian">首页</a></li>
-          <li role="presentation" class="active"><a href="/librarian/append">添加书籍</a></li>
+          <li role="presentation"><a href="/librarian/append">添加书籍</a></li>
         </ul>
       </div>
       <div class="col-md-4">
@@ -91,61 +91,61 @@
       <div class="row">
         <div class="col-md-12 form-group">
           <label for="isbn">ISBN</label>
-          <input class="form-control" name="isbn" type="text"/>
+          <input class="form-control" name="isbn" type="text" value="${book.isbn}"/>
         </div>
       </div>
       <div class="row">
         <div class="col-md-6 form-group">
           <label for="name">名称</label>
-          <input class="form-control" name="name" type="text"/>
+          <input class="form-control" name="name" type="text" value="${book.name}"/>
         </div>
         <div class="col-md-6 form-group">
           <label for="former-name">原名</label>
-          <input class="form-control" name="formerName" type="text"/>
+          <input class="form-control" name="formerName" type="text" value="${book.formerName}"/>
         </div>
       </div>
       <div class="row">
         <div class="col-md-6 form-group">
           <label for="author">作者</label>
-          <input class="form-control" name="author" type="text"/>
+          <input class="form-control" name="author" type="text" value="${book.author}"/>
         </div>
         <div class="col-md-6 form-group">
           <label for="translator">译者</label>
-          <input class="form-control" name="translator" type="text"/>
+          <input class="form-control" name="translator" type="text" value="${book.translator}"/>
         </div>
       </div>
       <div class="row">
         <div class="col-md-4 form-group">
           <label for="publisher">出版社</label>
-          <input class="form-control" name="publisher" type="text"/>
+          <input class="form-control" name="publisher" type="text" value="${book.publisher}"/>
         </div>
         <div class="col-md-4 form-group">
           <label for="publication-date">出版日期</label>
-          <input class="form-control" name="publicationDate" type="text"/>
+          <input class="form-control" name="publicationDate" type="text" value="${book.publicationDate}"/>
         </div>
         <div class="col-md-4 form-group">
           <label for="series">系列</label>
-          <input class="form-control" name="series" type="text"/>
+          <input class="form-control" name="series" type="text" value="${book.series}"/>
         </div>
       </div>
       <div class="row">
         <div class="col-md-4 form-group">
           <label for="language">语言</label>
-          <input class="form-control" name="language" type="text"/>
+          <input class="form-control" name="language" type="text" value="${book.language}"/>
         </div>
         <div class="col-md-4 form-group">
           <label for="pages">页数</label>
-          <input class="form-control" name="pages" type="text"/>
+          <input class="form-control" name="pages" type="text" value="${book.pages}"/>
         </div>
         <div class="col-md-4 form-group">
           <label for="format">开本</label>
-          <input class="form-control" name="format" type="text"/>
+          <input class="form-control" name="format" type="text" value="${book.format}"/>
         </div>
       </div>
       <div class="row">
         <div class="col-md-12 form-group">
           <label for="intro">简介</label>
-          <textarea class="form-control" name="intro" rows="7"></textarea>
+          <textarea class="form-control" name="intro" rows="7">${book.intro}</textarea>
         </div>
       </div>
       <div class="row">
@@ -157,24 +157,24 @@
     </form>
   </div>
 
-  <script src="../lib/jquery.min.js"></script>
-  <script src="../lib/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+  <script src="/lib/jquery.min.js"></script>
+  <script src="/lib/bootstrap-3.3.7/js/bootstrap.min.js"></script>
 
   <script type="text/javascript">
   $(function () {
+    // console.log(location.href)
     $('#submit').on('click', function () {
-      console.log($('#form').serialize())
       $.ajax({
-        url: 'append',
+        url: location.href,
         type: 'post',
         data: $('#form').serialize(),
         dataType: 'text',
         success: function (response, status, xhr) {
-          console.log(response);
+          console.log(response)
           if ('OK' == response) {
-            location.href = '/librarian'
+            location.reload()
           } else {
-            alert('保存失败')
+            alert('操作失败')
           }
         }
       })

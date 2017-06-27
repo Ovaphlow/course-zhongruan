@@ -92,7 +92,7 @@
         <div class="panel panel-default">
           <div class="panel-body">
             <div class="col-md-12">
-              <h3>${book.name}</h3>
+              <h3><a href="librarian/book/${book.id}">${book.name}</a></h3>
             </div>
             <div class="col-md-4">
               <p>${book.author} ${book.translator}</p>
@@ -118,7 +118,7 @@
         <div class="panel panel-default">
           <div class="panel-body">
             <div class="col-md-12">
-              <h3>{{name}}</h3>
+              <h3><a href="librarian/book/{{id}}">{{name}}</a></h3>
             </div>
             <div class="col-md-4">
               <p>{{author}} {{translator}}</p>
