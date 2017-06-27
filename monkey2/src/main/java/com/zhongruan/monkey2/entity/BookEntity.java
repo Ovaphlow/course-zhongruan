@@ -19,7 +19,7 @@ public class BookEntity implements Serializable{
 
   public void setId(Long id) {this.id = id;}
 
-  @Column(name="isbn", length=45)
+  @Column(name="isbn", length=50)
   private String isbn;
 
   public String getIsbn() {return this.isbn;}

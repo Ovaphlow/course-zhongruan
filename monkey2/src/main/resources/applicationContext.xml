@@ -48,9 +48,9 @@
 		</property>
     <property name="hibernateProperties">
       <props>
-        <prop key="hibernate.format_sql">true</prop>
         <!--<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>-->
         <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
+        <prop key="hibernate.format_sql">true</prop>
         <prop key="hibernate.show_sql">true</prop>
         <prop key="hibernate.hbm2ddl.auto">update</prop>
         <prop key="current_session_context_class">thread</prop>

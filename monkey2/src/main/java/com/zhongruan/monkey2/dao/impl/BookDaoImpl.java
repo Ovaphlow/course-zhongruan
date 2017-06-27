@@ -27,6 +27,7 @@ public class BookDaoImpl implements BookDao {
       + "publisher, publication_date, series, language, pages, format, intro "
       + "from book";
     Session session = sessionFactory.openSession();
+    //链式调用
     List<Map<String, Object>> result = session.createSQLQuery(sql)
       .setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP)
       .list();
