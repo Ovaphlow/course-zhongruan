@@ -19,6 +19,11 @@ public class BookServiceImpl implements BookService {
   private BookDao bookDao;
 
   @Override
+  public void delete(Long id) {
+    bookDao.delete(id);
+  }
+
+  @Override
   public void update(BookEntity book) {
     bookDao.update(book);
   }

@@ -22,6 +22,15 @@ public class BookDaoImpl implements BookDao {
 	@Autowired
   private SessionFactory sessionFactory;
 
+  public void delete(Long id) {
+    Session session = sessionFactory.openSession();
+    BookEntity book = new BookEntity();
+    book.setId(id);
+    session.delete(book);
+    session.flush();
+    session.close();
+  }
+
   public void update(BookEntity book) {
     Session session = sessionFactory.openSession();
     session.update(book);

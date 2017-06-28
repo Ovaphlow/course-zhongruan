@@ -7,6 +7,8 @@ import com.zhongruan.monkey2.entity.BookEntity;
 
 public interface BookDao {
 
+  public void delete(Long id);
+
   public void update(BookEntity book);
 
   public BookEntity findById(Long id);

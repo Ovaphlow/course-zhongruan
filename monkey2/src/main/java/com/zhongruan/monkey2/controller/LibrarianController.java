@@ -26,6 +26,18 @@ public class LibrarianController {
 
   @Autowired BookService bookService;
 
+  @DeleteMapping("/book/{id}")
+  @ResponseBody
+  public String delete(@PathVariable("id") Long id) {
+    logger.debug("{}", id);
+    try {
+      bookService.delete(id);
+      return "OK";
+    } catch (Exception e) {
+      return "ERROR";
+    }
+  }
+
   @RequestMapping(value="/book/{id}", method=RequestMethod.POST)
   @ResponseBody
   public String update(BookEntity book, @PathVariable("id") Long id) {

@@ -149,9 +149,14 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-md-12">
-          <a class="btn btn-default" href="../librarian">后退</a>
-          <a class="btn btn-primary pull-right" id="submit">提交</a>
+        <div class="col-md-2">
+          <a class="btn btn-default btn-block" href="../../librarian">后退</a>
+        </div>
+        <div class="col-md-2 col-md-offset-3">
+          <a class="btn btn-danger btn-block" id="delete">删除</a>
+        </div>
+        <div class="col-md-2 col-md-offset-3">
+          <a class="btn btn-primary btn-block" id="submit">提交</a>
         </div>
       </div>
     </form>
@@ -163,6 +168,22 @@
   <script type="text/javascript">
   $(function () {
     // console.log(location.href)
+    $('#delete').on('click', function () {
+      $.ajax({
+        url: location.href,
+        type: 'delete',
+        data: {},
+        dataType: 'text',
+        success: function (response, status, xhr) {
+          console.log(response)
+          if ('OK' == response) {
+            window.location.href = '../../librarian'
+          } else {
+            alert('操作失败')
+          }
+        }
+      })
+    })
     $('#submit').on('click', function () {
       $.ajax({
         url: location.href,
