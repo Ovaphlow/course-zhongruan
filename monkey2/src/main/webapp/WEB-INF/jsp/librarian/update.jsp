@@ -193,6 +193,7 @@
         success: function (response, status, xhr) {
           console.log(response)
           if ('OK' == response) {
+            alert('操作成功')
             location.reload()
           } else {
             alert('操作失败')
