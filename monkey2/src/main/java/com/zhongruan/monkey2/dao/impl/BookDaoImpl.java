@@ -54,7 +54,6 @@ public class BookDaoImpl implements BookDao {
       + "publisher, publication_date, series, language, pages, format, intro "
       + "from book";
     Session session = sessionFactory.openSession();
-    //链式调用
     List<Map<String, Object>> result = session.createSQLQuery(sql)
       .setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP)
       .list();
@@ -63,6 +62,9 @@ public class BookDaoImpl implements BookDao {
   }
 
   public List<Map<String, Object>> search(String keyword) {
+    // JDBC Prepared Statement
+    // MyBatis #{}
+    // 预编译，类型安全，不会有SQL注入的风险
     String sql = "select id, isbn, name, former_name, author, translator, "
       + "publisher, publication_date, series, language, pages, format, intro "
       + "from book "

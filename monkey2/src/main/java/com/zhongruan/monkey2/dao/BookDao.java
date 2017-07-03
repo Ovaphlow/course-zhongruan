@@ -7,16 +7,16 @@ import com.zhongruan.monkey2.entity.BookEntity;
 
 public interface BookDao {
 
-  public void delete(Long id);
+  void delete(Long id);
 
-  public void update(BookEntity book);
+  void update(BookEntity book);
 
-  public BookEntity findById(Long id);
+  BookEntity findById(Long id);
 
-  public void append(BookEntity book);
+  void append(BookEntity book);
 
-  public List<Map<String, Object>> list();
+  List<Map<String, Object>> list();
 
-  public List<Map<String, Object>> search(String keyword);
+  List<Map<String, Object>> search(String keyword);
 }
 

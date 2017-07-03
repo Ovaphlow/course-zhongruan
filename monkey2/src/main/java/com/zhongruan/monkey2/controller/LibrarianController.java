@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.hibernate.*;
-import org.hibernate.transform.Transformers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,9 +42,9 @@ public class LibrarianController {
   public String update(BookEntity book, @PathVariable("id") Long id) {
     logger.debug("id {}", id);
     logger.debug("{}", book);
-    BookEntity b = bookService.findById(id);
-    b.setIntro("123123213213");
-    bookService.update(b);
+//    BookEntity b = bookService.findById(id);
+//    b.setIntro("123123213213");
+//    bookService.update(b);
     try {
       bookService.update(book);
       return "OK";
