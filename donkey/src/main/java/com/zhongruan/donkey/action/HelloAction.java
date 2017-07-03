@@ -9,6 +9,8 @@ import com.zhongruan.donkey.domain.User;
 
 @ParentPackage("struts-default")
 // @Namespace("/test")
+// @RequestMapping("/url")
+// url/error
 @Results({@Result(name="error", location="error.jsp")})
 @ExceptionMappings({@ExceptionMapping(exception="java.lang.RuntimeException", result="error")})
 public class HelloAction extends ActionSupport {
@@ -24,12 +26,15 @@ public class HelloAction extends ActionSupport {
   // private EntityManagerFactory emf;
   // private EntityManagerFactory emf = Persistence.createEntityManagerFactory("jpa");
 
+  // @RequestMapping()
   @Action(value="index", results={@Result(name="success", location="index.jsp")})
   public String index() throws Exception {
     return SUCCESS;
   }
 
-  @Action(value="loginPost", results={@Result(name="success", location="index", type="redirect")})
+  // location 相当于 springmvc的return "redirect:" 相当于重定向
+  @Action(value="loginPost", results={@Result(name="success", location="index", type="redirect"),
+      @Result(name="ok", location="index1", type="redirect")})
   public String loginPost() throws Exception {
     System.out.println(String.format("[info] account %s, password %s",
         account, password));
@@ -44,6 +49,7 @@ public class HelloAction extends ActionSupport {
     } else {
       return ERROR;
     }
+    return OK;
   }
 
   // @Action("login")

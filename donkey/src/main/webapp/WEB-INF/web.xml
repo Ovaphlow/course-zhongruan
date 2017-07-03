@@ -13,6 +13,7 @@
     </filter-class>
     <init-param>
       <param-name>actionPackages</param-name>
+      <!--类似于SpringMVC框架的scan-package部分-->
       <param-value>com.zhongruan.donkey.action</param-value>
     </init-param>
   </filter>
