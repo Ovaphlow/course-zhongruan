@@ -16,7 +16,7 @@ public class WebApplication {
         final FilterRegistrationBean registrationBean = new FilterRegistrationBean();
         registrationBean.setFilter(new JwtFilter());
         registrationBean.addUrlPatterns("/api/*");
-
+        System.out.println("FilterRegistrationBean---");
         return registrationBean;
     }
 
