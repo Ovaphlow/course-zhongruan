@@ -30,6 +30,7 @@ public class UserController {
     @RequestMapping(value = "login", method = RequestMethod.POST)
     public LoginResponse login(@RequestBody final UserLogin login)
         throws ServletException {
+        System.out.println("UserController-- login");
         if (login.name == null || !userDb.containsKey(login.name)) {
             throw new ServletException("Invalid login");
         }
@@ -39,7 +40,8 @@ public class UserController {
             .setIssuedAt(new Date())
             .signWith(SignatureAlgorithm.HS256, "secretkey")
             .compact();
-        System.out.println(token);
+        System.out.println("UserController-- login-- token");
+        System.out.println(String.format("UserController-- login-- %s", token));
         return new LoginResponse(Jwts.builder().setSubject(login.name)
             .claim("roles", userDb.get(login.name)).setIssuedAt(new Date())
             .signWith(SignatureAlgorithm.HS256, "secretkey").compact());

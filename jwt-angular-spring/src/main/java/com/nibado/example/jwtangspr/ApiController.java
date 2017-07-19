@@ -19,7 +19,9 @@ public class ApiController {
 	@RequestMapping(value = "role/{role}", method = RequestMethod.GET)
 	public Boolean login(@PathVariable final String role,
 			final HttpServletRequest request) throws ServletException {
+		System.out.println("ApiController-- Role");
 		final Claims claims = (Claims) request.getAttribute("claims");
+		System.out.println(String.format("ApiController-- Role-- %s", claims));
 
 		return ((List<String>) claims.get("roles")).contains(role);
 	}
