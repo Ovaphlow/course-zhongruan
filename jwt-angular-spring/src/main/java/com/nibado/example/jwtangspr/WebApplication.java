@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Configuration;
 @ComponentScan
 @Configuration
 public class WebApplication {
+    // 过滤器(JwtFilter)
     @Bean
     public FilterRegistrationBean jwtFilter() {
         final FilterRegistrationBean registrationBean = new FilterRegistrationBean();

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api")
 public class ApiController {
+	// request中的claims于过滤器JwtFilter中注入
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "role/{role}", method = RequestMethod.GET)
 	public Boolean login(@PathVariable final String role,

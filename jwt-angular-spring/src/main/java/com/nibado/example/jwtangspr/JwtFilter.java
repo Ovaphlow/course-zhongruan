@@ -16,6 +16,7 @@ import io.jsonwebtoken.SignatureException;
 
 public class JwtFilter extends GenericFilterBean {
 
+    // 过滤器，于WebApplication中初始化并设置过滤条件。
     @Override
     public void doFilter(final ServletRequest req,
                          final ServletResponse res,
