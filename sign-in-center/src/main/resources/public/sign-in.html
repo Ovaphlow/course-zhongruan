@@ -80,12 +80,6 @@
   $(function () {
     console.log('document ready')
     $('#submit').on('click', function () {
-      console.log('begin')
-      console.log($('#sign-in').serialize())
-      // $.post('auth/sign-in', $('#sign-in').serialize())
-        // .then(function (result) {
-          // console.log(result)
-        // })
       $.ajax({
         url: 'auth/sign-in',
         type: 'post',
