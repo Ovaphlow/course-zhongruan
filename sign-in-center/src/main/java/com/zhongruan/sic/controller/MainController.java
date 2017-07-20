@@ -10,7 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 
+import com.zhongruan.sic.config.JSONWebToken;
 import com.zhongruan.sic.entity.UserEntity;
 
 @RestController
@@ -30,6 +33,7 @@ public class MainController {
     UserEntity user
   ) {
     logger.info("Sign in: {}", user);
+    logger.info("secret key: {}", JSONWebToken.SECRET_KEY);
     return "OK";
 	}
 }
