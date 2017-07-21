@@ -80,15 +80,27 @@
   $(function () {
     var token = window.localStorage.getItem("token")
     console.log(token)
+    $.ajax({
+      url: 'auth/info',
+      headers: {
+        'Authorization': 'Bearer ' + window.localStorage.getItem("token")
+      },
+      type: 'get',
+      data: {},
+      dataType: 'json',
+      success: function (response) {
+        console.log(response)
+      }
+    })
     $('#submit').on('click', function () {
       $.ajax({
         url: 'auth/sign-in',
         type: 'post',
         data: $('#sign-in').serialize(),
         dataType: 'json',
-        success: function (result) {
-          if (result.message == 'OK') {
-            window.localStorage.setItem("token", result.token)
+        success: function (response) {
+          if (response.message == 'OK') {
+            window.localStorage.setItem("token", response.token)
           }
         }
       })
