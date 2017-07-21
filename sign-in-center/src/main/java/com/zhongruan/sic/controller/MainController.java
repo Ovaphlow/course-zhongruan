@@ -2,7 +2,10 @@ package com.zhongruan.sic.controller;
 
 import io.jsonwebtoken.Claims;
 
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -13,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
-import com.zhongruan.sic.config.JSONWebToken;
+import com.zhongruan.sic.Config;
 import com.zhongruan.sic.entity.UserEntity;
 
 @RestController
@@ -29,11 +32,18 @@ public class MainController {
 
 	// @SuppressWarnings("unchecked")
 	@PostMapping(value = "sign-in")
-	public String signIn(
-    UserEntity user
-  ) {
+	public Map<String, String> signIn(UserEntity user) {
     logger.info("Sign in: {}", user);
-    logger.info("secret key: {}", JSONWebToken.SECRET_KEY);
-    return "OK";
+    String token = Jwts.builder()
+      .setSubject(user.getAccount())
+      .claim("role", "用户")
+      .setIssuedAt(new Date())
+      .signWith(SignatureAlgorithm.HS256, Config.JWT_SECRET_KEY)
+      .compact();
+    Map<String, String> result = new HashMap<String, String>();
+    result.put("message", "OK");
+    result.put("token", token);
+    logger.info("{}", result);
+    return result;
 	}
 }

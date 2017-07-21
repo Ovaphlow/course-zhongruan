@@ -78,15 +78,18 @@
   <script src="lib/bootstrap-3.3.7/js/bootstrap.min.js"></script>
   <script>
   $(function () {
-    console.log('document ready')
+    var token = window.localStorage.getItem("token")
+    console.log(token)
     $('#submit').on('click', function () {
       $.ajax({
         url: 'auth/sign-in',
         type: 'post',
         data: $('#sign-in').serialize(),
-        dataType: 'text',
+        dataType: 'json',
         success: function (result) {
-          console.log(result)
+          if (result.message == 'OK') {
+            window.localStorage.setItem("token", result.token)
+          }
         }
       })
     })
