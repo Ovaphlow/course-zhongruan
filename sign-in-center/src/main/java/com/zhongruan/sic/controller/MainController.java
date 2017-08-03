@@ -72,7 +72,8 @@ public class MainController {
     Map<String, String> result = new HashMap<String, String>();
     result.put("message", "OK");
     result.put("token", token);
-    logger.info("{}", result);
+    logger.info("result: {}", result);
+    logger.info("result: {}", result);
     return result;
 	}
 }
