@@ -1,0 +1,7 @@
+$(function () {
+  $('#search').on('keypress', function (event) {
+    if (event.keyCode == 13) {
+      alert(1)
+    }
+  })
+})

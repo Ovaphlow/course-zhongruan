@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!-- 配置MyBatis框架 -->
+<!-- 配置文件存放的目录为classpath下，classes目录下 -->
+<!-- 或者maven架构的程序，直接放在resources目录下 -->
+<configuration>
+  <typeAliases>
+    <!--给实体类起一个别名 -->
+    <!--<typeAlias type="com.zhongruan.entity.UserEntity" alias="User" />-->
+  </typeAliases>
+  <!-- JDBC的环境配置,或者叫JDBC的连接参数 -->
+  <environments default="development">
+    <environment id="development">
+      <!-- 声明事务类型为MyBatis框架内置事务管理 -->
+      <transactionManager type="jdbc" />
+      <!-- JDBC的连接参数及连接池声明 -->
+      <!-- dataSource代表数据源，一般指数据库连接池 -->
+      <dataSource type="POOLED">
+        <!-- 数据库驱动类 -->
+        <property name="driver" value="com.mysql.jdbc.Driver" />
+        <!-- 连接数据库制定Unicode编码及使用utf8字符集 -->
+        <!--<property name="url" value="jdbc:mysql://locahost:3306/zhongruan?useUnicode=true&characterEncoding=utf8" />-->
+        <!-- 数据库服务器的地址及连接方式 -->
+        <property name="url" value="jdbc:mysql://127.0.0.1:3306/zhongruan" />
+        <property name="username" value="root" />
+        <property name="password" value="" />
+      </dataSource>
+    </environment>
+  </environments>
+  <mappers>
+    <!--userMapper.xml装载进来  同等于把“dao”的实现装载进来 -->
+    <mapper resource="mapper/UserMapper.xml" />
+    <mapper resource="mapper/ContactMapper.xml" />
+  </mappers>
+</configuration>

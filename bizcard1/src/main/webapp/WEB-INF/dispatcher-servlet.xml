@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:context="http://www.springframework.org/schema/context"
+  xmlns:mvc="http://www.springframework.org/schema/mvc"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd
+    http://www.springframework.org/schema/mvc
+    http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+  <!-- 避免IE在ajax请求时，返回json出现下载 -->
+  <!--<bean id="jacksonMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">-->
+    <!--<property name="supportedMediaTypes">-->
+      <!--<list>-->
+        <!--<value>text/html;charset=UTF-8</value>-->
+      <!--</list>-->
+    <!--</property>-->
+  <!--</bean>-->
+
+  <!--视图解析器(viewResovler)-->
+  <!--在页面文件为JSP的时候必需-->
+  <!--<bean id="viewResolver"-->
+    <!--class="org.springframework.web.servlet.view.InternalResourceViewResolver">-->
+    <!--<property name="viewClass">-->
+      <!--<value>org.springframework.web.servlet.view.InternalResourceView</value>-->
+    <!--</property>-->
+    <!--前缀-->
+    <!--<property name="prefix" value="/WEB-INF/jsp/" />-->
+    <!--后缀-->
+    <!--<property name="suffix" value=".jsp" />-->
+  <!--</bean>-->
+
+  <bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+    <property name="templateLoaderPath" value="/WEB-INF/freemarker/"/>
+    <property name="freemarkerSettings">
+      <props>
+        <!--防止模板解析空值时的错误-->
+        <prop key="classic_compatible">true</prop>
+        <!--编码-->
+        <prop key="defaultEncoding">UTF-8</prop>
+      </props>
+    </property>
+  </bean>
+
+  <bean id="viewResolver" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+    <property name="cache" value="true"/>
+    <property name="prefix" value=""/>
+    <property name="suffix" value=".html"/>
+    <property name="contentType" value="text/html;charset=UTF-8"/>
+  </bean>
+
+  <!--控制层代码的位置, 包名或者目录名-->
+  <!--<context:component-scan base-package="controller" />-->
+  <!--必需-->
+  <context:component-scan base-package="com.zhongruan.bizcard.controller" />
+
+  <!--声明框架的注解式开发方式-->
+  <!--必需-->
+  <mvc:annotation-driven/>
+
+  <!--声明静态文件的默认处理方式-->
+  <mvc:default-servlet-handler/>
+</beans>
