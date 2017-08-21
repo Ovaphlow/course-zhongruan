@@ -1,18 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app version="2.4" xmlns="http://java.sun.com/xml/ns/javaee"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
-    http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        http://java.sun.com/xml/ns/javaee
+        http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+    version="3.0">
 
-  <display-name>bizcard</display-name>
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>classpath*:applicationContext.xml</param-value>
+  </context-param>
 
-  <welcome-file-list>
-    <welcome-file>/</welcome-file>
-  </welcome-file-list>
+  <!--配置Spring框架的监听器-->
+  <listener>
+    <listener-class>
+      org.springframework.web.context.ContextLoaderListener
+    </listener-class>
+  </listener>
 
   <filter>
-  <!--声明编码方式为UTF8-->
-  <filter-name>springUtf8Encoding</filter-name>
+    <!--声明编码方式为UTF8-->
+    <filter-name>springUtf8Encoding</filter-name>
     <filter-class>
       org.springframework.web.filter.CharacterEncodingFilter
     </filter-class>
@@ -27,19 +35,16 @@
     <url-pattern>/*</url-pattern>
   </filter-mapping>
 
-  <!--配置Spring框架的监听器-->
-  <listener>
-    <listener-class>
-      org.springframework.web.context.ContextLoaderListener
-    </listener-class>
-  </listener>
-
   <!--配置SpringMVC框架的初始配置文件及应用范围-->
   <servlet>
     <!--SpringMVC框架的配置文件的文件名默认为servlet-name中的值加上-servlet.xml-->
     <servlet-name>dispatcher</servlet-name>
     <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
     <load-on-startup>1</load-on-startup>
+    <init-param>
+      <param-name>contextConfigLocation</param-name>
+      <param-value>classpath*:dispatcher-servlet.xml</param-value>
+    </init-param>
   </servlet>
 
   <!--范围-->
