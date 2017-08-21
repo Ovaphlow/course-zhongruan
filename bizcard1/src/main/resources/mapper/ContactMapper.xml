@@ -14,7 +14,7 @@
   <select id="findByName" resultType="com.zhongruan.bizcard.entity.ContactEntity">
     select id, name, company, title, address, remark
     from bizcard
-    where name = #{name}
+    where locate(#{keyword}, name) > 0
   </select>
 
   <select id="findAll" resultType="com.zhongruan.bizcard.entity.ContactEntity">

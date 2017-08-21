@@ -70,7 +70,7 @@
               <td>备注</td>
             </tr>
           </thead>
-          <tbody>
+          <tbody id="table">
             <#list list as bizcard>
               <tr>
                 <td>[${bizcard.id}]&nbsp;${bizcard.name}</td>
@@ -88,7 +88,64 @@
 
   <script src="lib/jquery.min.js"></script>
   <script src="lib/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+  <!-- 引入js模板库handlebars -->
+  <script src="lib/handlebars.min.js"></script>
 
-  <script src="js/index.js"></script>
+  <!-- text/template不被浏览器识别及运行 -->
+  <!-- 用来作为复杂的js字符串 -->
+  <script type="text/template" id="template">
+  {{#each data}}
+    <tr>
+      <td>[{{id}}]&nbsp;{{name}}</td>
+      <td>{{company}}</td>
+      <td>{{title}}</td>
+      <td>{{address}}</td>
+      <td>{{remark}}</td>
+    </tr>
+  {{/each}}
+  </script>
+
+  <script>
+  // 页面加载完毕
+  $(function () {
+    // 给id为search的元素绑定一个响应键盘输入的事件
+    $('#search').on('keypress', function (event) {
+      // console.log(event.keyCode)
+      // 判断输入的是否是回车
+      if (event.keyCode == 13) {
+        // 输入回车后发起一个ajax请求
+        $.ajax({
+          // 请求的地址(url)
+          url: '/',
+          // 把id为search的input中的value作为数据发送给后端url
+          data: {keyword: $('#search').val()},
+          // 请求方法
+          type: 'post',
+          // 后端返回数据的类型
+          dataType: 'json',
+          // 通讯成功
+          success: function (data) {
+            console.log(data)
+            // 从id为template的标签中读取出handlebars需要的模板字符串
+            var source = $('#template').html()
+            // 由handlebars编译模板字符串
+            var template = Handlebars.compile(source)
+            // 以如下的形式封装后端返回的数据
+            var data = {'data': data}
+            // 渲染数据,并将渲染完毕的html代码覆盖的id为table的元素内
+            $('#table').html(template(data))
+          },
+          // success及error触发之后运行complete回调函数
+          // jqXHR代表原生ajax的XMLHttpRequest对象
+          // textStatus代表通讯状态,'timeout'超时等
+          complete: function (jqXHR, textStatus) {
+            // console.log(jqXHR)
+            // console.log(textStatus)
+          }
+        })
+      }
+    })
+  })
+  </script>
 </body>
 </html>

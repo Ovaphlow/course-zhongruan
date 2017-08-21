@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.zhongruan.bizcard.dao.ContactDao;
-import com.zhongruan.bizcard.dao.UserDao;
 import com.zhongruan.bizcard.util.MyBatis;
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
@@ -70,8 +69,13 @@ public class IndexController {
 
 //  @RequestMapping(value = "/", method = RequestMethod.POST)
   @PostMapping("/")
-  public String indexPost() {
-    return "redirect:/";
+  @ResponseBody
+  public List<ContactEntity> indexPost(
+      @RequestParam(value = "keyword", defaultValue = "") String keyword) {
+    logger.info("{}", keyword);
+    List<ContactEntity> contacts = contactDao.findByName(keyword);
+    logger.info("{}", contacts);
+    return contacts;
   }
 
   @RequestMapping(value = "/phone")
