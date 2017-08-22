@@ -5,16 +5,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.zhongruan.bizcard.dao.ContactDao;
-import com.zhongruan.bizcard.util.MyBatis;
-import org.apache.ibatis.session.SqlSession;
+import com.zhongruan.bizcard.service.ContactService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
 
 import com.zhongruan.bizcard.entity.ContactEntity;
+
+//后端程序的调用顺序
+//客户端->控制层(controller)->业务层(service)->数据访问接口(dao)->DataBase
+//DB->DAO->Service->Controller->Client
 
 //@代表注解
 //@Controller代表当前类为SpringMVC框架的控制层代码
@@ -23,14 +26,13 @@ public class IndexController {
 
   private final Logger logger = LoggerFactory.getLogger(UserController.class);
 
-  SqlSession session = MyBatis.getSessionFactory().openSession();
-
-  ContactDao contactDao = session.getMapper(ContactDao.class);
+  @Autowired
+  ContactService contactService;
 
   @GetMapping("/list")
   @ResponseBody
   public List<ContactEntity> list() {
-    return contactDao.findAll();
+    return contactService.findAll();
   }
 
   // @RequestMapping代表处理参数中value属性的值作为一个暴露给用户的URL
@@ -60,9 +62,9 @@ public class IndexController {
     List<Map<String, String>> list = new ArrayList<Map<String, String>>();
     list.add(map);
     list.add(map1);
-    list.add(map2);
+//    list.add(map2);
     model.addAttribute("list1", list);
-    List<ContactEntity> contactList = contactDao.findAll();
+    List<ContactEntity> contactList = contactService.findAll();
     model.addAttribute("list", contactList);
     return "index";
   }
@@ -73,13 +75,8 @@ public class IndexController {
   public List<ContactEntity> indexPost(
       @RequestParam(value = "keyword", defaultValue = "") String keyword) {
     logger.info("{}", keyword);
-    List<ContactEntity> contacts = contactDao.findByName(keyword);
+    List<ContactEntity> contacts = contactService.findByName(keyword);
     logger.info("{}", contacts);
     return contacts;
-  }
-
-  @RequestMapping(value = "/phone")
-  public String phone() {
-    return "indexPhone";
   }
 }

@@ -68,6 +68,7 @@
       <version>${spring.version}</version>
     </dependency>
 
+    <!--freemarker需要-->
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-context-support</artifactId>
@@ -80,6 +81,9 @@
         <version>${freemarker.version}</version>
     </dependency>
 
+    <!--Spring3.x没有jackson的依赖，处理ajax的时候需要先把数据序列化为字符串，-->
+    <!--字符串传到前端页面后,需要调用一个js的方法,将字符串转换为json格式-->
+    <!--在Spring4.x后可以加上jackson库的依赖,由SpringMVC框架自动调用jackson,将数据转换为JSON格式-->
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-databind</artifactId>
@@ -98,36 +102,42 @@
       <version>${mybatis.version}</version>
     </dependency>
 
+    <!--MyBatis和Spring框架整合需要的一个包-->
     <dependency>
       <groupId>org.mybatis</groupId>
       <artifactId>mybatis-spring</artifactId>
       <version>${mybatis-spring.version}</version>
     </dependency>
 
+    <!--连接池-->
     <dependency>
       <groupId>com.zaxxer</groupId>
       <artifactId>HikariCP</artifactId>
       <version>${hikari.version}</version>
     </dependency>
 
+    <!--连接池-->
     <dependency>
       <groupId>com.alibaba</groupId>
       <artifactId>druid</artifactId>
       <version>${druid.version}</version>
     </dependency>
 
+    <!--io库-->
     <dependency>
       <groupId>commons-io</groupId>
       <artifactId>commons-io</artifactId>
       <version>${commons-io.version}</version>
     </dependency>
 
+    <!--文件上传库-->
     <dependency>
      <groupId>commons-fileupload</groupId>
      <artifactId>commons-fileupload</artifactId>
      <version>${commons-fileupload.version}</version>
     </dependency>
 
+    <!--编码库-->
     <dependency>
       <groupId>commons-codec</groupId>
       <artifactId>commons-codec</artifactId>
@@ -147,7 +157,7 @@
           <target>${java.version}</target>
         </configuration>
       </plugin>
-      <!-- <plugin>
+      <plugin>
         <groupId>org.apache.tomcat.maven</groupId>
         <artifactId>tomcat7-maven-plugin</artifactId>
         <version>2.2</version>
@@ -155,7 +165,7 @@
           <path>/</path>
           <port>8080</port>
         </configuration>
-      </plugin> -->
+      </plugin>
       <plugin>
         <groupId>org.eclipse.jetty</groupId>
         <artifactId>jetty-maven-plugin</artifactId>
