@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.zhongruan.bizcard.entity.UserEntity;
 import com.zhongruan.bizcard.service.ContactService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,8 +39,9 @@ public class IndexController {
   // @RequestMapping代表处理参数中value属性的值作为一个暴露给用户的URL
   @RequestMapping(value = "/", method = RequestMethod.GET)
   // @GetMapping("/")
-  public String index(Model model) {
+  public String index(@SessionAttribute UserEntity user, Model model) {
     // /WEB-INF/jsp/index.jsp
+    logger.info("session: {}", user);
     Map<String, String> map = new HashMap<String, String>();
     map.put("name", "MC");
     map.put("company", "电影院");
@@ -62,7 +64,7 @@ public class IndexController {
     List<Map<String, String>> list = new ArrayList<Map<String, String>>();
     list.add(map);
     list.add(map1);
-//    list.add(map2);
+    list.add(map2);
     model.addAttribute("list1", list);
     List<ContactEntity> contactList = contactService.findAll();
     model.addAttribute("list", contactList);

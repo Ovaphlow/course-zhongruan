@@ -3,13 +3,23 @@
   "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <!--这块等于dao接口的实现  namespace必须和接口的类路径一样-->
+
 <mapper namespace="com.zhongruan.bizcard.dao.UserDao">
+
   <!-- id必须和接口中的方法名一样 -->
   <!-- resultType代表返回数据的类型 -->
   <!-- 如果用类接数据，需要声明resultMap="com.zhongruan.entity.UserEntity" -->
   <!-- 参训参数也可以写成${account}的形式，用此方法会引起SQL注入的问题 -->
   <!-- #{}相当于声明以PreparedStatement执行SQL -->
   <!-- ${}相当于声明以Statement执行SQL -->
+
+  <select id="findById" resultType="userEntity">
+    select id, account, password, name
+    from user
+    where id = #{id}
+    limit 1
+  </select>
+
   <select id="login" resultType="java.util.Map">
     select id, count(*) as counter
     from user

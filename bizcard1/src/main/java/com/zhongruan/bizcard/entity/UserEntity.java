@@ -2,6 +2,16 @@ package com.zhongruan.bizcard.entity;
 
 public class UserEntity {
 
+  private int id;
+
+  public int getId() {
+    return this.id;
+  }
+
+  public void setId(int id) {
+    this.id = id;
+  }
+
   private String account;
 
   public String getAccount() {
@@ -23,7 +33,7 @@ public class UserEntity {
   }
 
   public String toString() {
-    return String.format("User {account: %s, password: %s}",
-        this.account, this.password);
+    return String.format("User{id: %s. account: %s, password: %s}",
+        this.id, this.account, this.password);
   }
 }

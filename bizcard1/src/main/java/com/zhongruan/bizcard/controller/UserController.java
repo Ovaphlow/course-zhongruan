@@ -13,6 +13,9 @@ import org.springframework.ui.Model;
 
 import com.zhongruan.bizcard.entity.UserEntity;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 @Controller
 public class UserController {
 
@@ -70,26 +73,37 @@ public class UserController {
     return "register";
   }
 
+  @RequestMapping(value = "/logout", method = RequestMethod.GET)
+  public String logout(HttpSession session) {
+    session.invalidate();
+    return "redirect:/";
+  }
+
   // @PostMapping("login")
   @RequestMapping(value = "/login", method = RequestMethod.POST)
   @ResponseBody
   public Map<String, String> loginPost(
-    @RequestParam(value = "username", defaultValue = "") String user,
-    @RequestParam(value = "password", defaultValue = "") String password
+    @RequestParam(value = "username", defaultValue = "") String username,
+    @RequestParam(value = "password", defaultValue = "") String password,
+    HttpSession session
   ) {
-    logger.info("user:{}, password:{}", user, password);
+    logger.info("user:{}, password:{}", username, password);
     // 声明一个名为result的Map，用来存放查询结果
     // 调用userDao的login方法，把账号和密码的数据传入login的Mapper部分
     // 结果集写入result里
-    Map<String, Object> result = userService.login(user, password);
+    Map<String, Object> data = userService.login(username, password);
     Map<String, String> map = new HashMap();
-    logger.info("{}", result);
+    logger.info("{}", data);
     // 判断counter的数量，如果不等于一，说明没有相符的账号或者数据异常
-    if (!"1".equals(result.get("counter").toString())) {
+    if (!"1".equals(data.get("counter").toString())) {
       // 数据出错，重定向到登录的url
       map.put("message", "ERROR");
       return map;
     }
+    UserEntity user = userService.findById(
+        Integer.parseInt(data.get("id").toString()));
+    session.setAttribute("user", user);
+    logger.info("{}", user);
     map.put("message", "OK");
     // 把id的内容保存到Session、Cookie或返回token
     // redirect: 代表跳转到如下页面

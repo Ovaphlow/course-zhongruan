@@ -68,4 +68,18 @@
 
   <!--声明静态文件的默认处理方式-->
   <mvc:default-servlet-handler/>
+
+  <mvc:interceptors>
+    <mvc:interceptor>
+      <mvc:mapping path="/*"/>
+      <bean class="com.zhongruan.bizcard.interceptor.SecurityInterceptor">
+        <property name="excludeUrls">
+          <list>
+            <value>/login</value>
+            <value>/register</value>
+          </list>
+        </property>
+      </bean>
+    </mvc:interceptor>
+  </mvc:interceptors>
 </beans>
