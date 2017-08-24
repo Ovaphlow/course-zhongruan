@@ -129,13 +129,13 @@
           // 通讯成功
           success: function (data) {
             console.log(data)
+            // 以如下的形式封装后端返回的数据
+            var data = {'data': data}
             // 从id为template的标签中读取出handlebars需要的模板字符串
             var source = $('#template').html()
             // 由handlebars编译模板字符串
             var template = Handlebars.compile(source)
-            // 以如下的形式封装后端返回的数据
-            var data = {'data': data}
-            // 渲染数据,并将渲染完毕的html代码覆盖的id为table的元素内
+            // 渲染数据,并将渲染完毕的html代码覆盖到id为table的元素内
             $('#table').html(template(data))
           },
           // success及error触发之后运行complete回调函数
