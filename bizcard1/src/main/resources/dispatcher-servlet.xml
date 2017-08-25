@@ -69,6 +69,7 @@
   <!--声明静态文件的默认处理方式-->
   <mvc:default-servlet-handler/>
 
+  <!-- 拦截器配置 -->
   <mvc:interceptors>
     <mvc:interceptor>
       <mvc:mapping path="/*"/>

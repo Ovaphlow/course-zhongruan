@@ -10,6 +10,7 @@ import java.util.List;
 
 public class SecurityInterceptor implements HandlerInterceptor {
 
+  // 保存例外的url，比如login和register
   private List<String> excludeUrls;
 
   public List<String> getExcludeUrls() {
@@ -20,6 +21,7 @@ public class SecurityInterceptor implements HandlerInterceptor {
     this.excludeUrls = excludeUrls;
   }
 
+  // 客户端发起的请求在到达controller前触发，拦截该请求
   @Override
   public boolean preHandle(HttpServletRequest request,
       HttpServletResponse response, Object handler) throws Exception {
@@ -32,10 +34,12 @@ public class SecurityInterceptor implements HandlerInterceptor {
     HttpSession session = request.getSession();
     if (session.getAttribute("user") == null) {
       response.sendRedirect("/login");
+      return false;
     }
     return true;
   }
 
+  // 请求被controller接收后触发
   @Override
   public void postHandle(
       HttpServletRequest request,
@@ -44,6 +48,7 @@ public class SecurityInterceptor implements HandlerInterceptor {
       ModelAndView mav
   ) throws Exception {}
 
+  // 请求和响应处理完毕后触发
   @Override
   public void afterCompletion (
       HttpServletRequest request,

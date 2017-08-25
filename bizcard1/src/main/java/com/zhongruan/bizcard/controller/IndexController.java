@@ -42,7 +42,7 @@ public class IndexController {
   public String index(@SessionAttribute UserEntity user, Model model) {
     // /WEB-INF/jsp/index.jsp
     logger.info("session: {}", user);
-    Map<String, String> map = new HashMap<String, String>();
+    Map<String, String> map = new HashMap();
     map.put("name", "MC");
     map.put("company", "电影院");
     map.put("title", "老板");
