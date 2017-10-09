@@ -61,6 +61,10 @@ public class BookDaoImpl implements BookDao {
         return result;
     }
 
+    // HQL // SQL
+    // from user where 
+    // String sql = "from User where id = 1";
+    // 缓存方面，二级缓存有自带的缓存、memcache、ehcache、redis
     public List<Map<String, Object>> search(String keyword) {
         // JDBC Prepared Statement
         // MyBatis #{}

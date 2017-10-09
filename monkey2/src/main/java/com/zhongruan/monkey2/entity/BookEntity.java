@@ -8,19 +8,20 @@ import javax.persistence.*;
 @Entity
 @Table(name="book")
 public class BookEntity implements Serializable{
-  private static final long serialVersionUID = 1L;
 
-  @Id
-  @GeneratedValue(strategy=GenerationType.IDENTITY)
-  @Column(name="id", nullable=false)
-  private Long id;
+    private static final long serialVersionUID = 1L;
 
-  public Long getId() {return this.id;}
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id", nullable=false)
+    private Long id;
 
-  public void setId(Long id) {this.id = id;}
+    public Long getId() {return this.id;}
 
-  @Column(name="isbn", length=50)
-  private String isbn;
+    public void setId(Long id) {this.id = id;}
+
+    @Column(name = "isbn", length = 50, nullable = false)
+    private String isbn;
 
   public String getIsbn() {return this.isbn;}
 
