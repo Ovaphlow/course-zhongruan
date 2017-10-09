@@ -42,9 +42,9 @@ public class LibrarianController {
     public String update(BookEntity book, @PathVariable("id") Long id) {
         logger.debug("id {}", id);
         logger.debug("{}", book);
-    //    BookEntity b = bookService.findById(id);
-    //    b.setIntro("123123213213");
-    //    bookService.update(b);
+        // BookEntity b = bookService.findById(id);
+        // b.setIntro("123123213213");
+        // bookService.update(b);
         try {
             bookService.update(book);
             return "OK";
