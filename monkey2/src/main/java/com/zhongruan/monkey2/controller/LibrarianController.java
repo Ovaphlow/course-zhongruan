@@ -86,7 +86,7 @@ public class LibrarianController {
   @RequestMapping(value="", method=RequestMethod.GET)
   public String index(Model model) {
     List<Map<String, Object>> result = bookService.index();
-    // logger.debug("{}", result);
+    logger.debug("{}", result);
     model.addAttribute("books", result);
     return "librarian";
   }
